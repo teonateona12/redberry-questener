@@ -8,7 +8,7 @@ const Start = () => {
       <Link to={'/personal'} >
           <button className="animate-appear group realtive w-80 h-40 inline-flex items-top justify-center">
             <h4 style={styledStroke} className="w-40 absolute font-bold text-3xl text-white stroke-black translate-y-0.5 translate-x-0.5 opacity-0 group-hover:opacity-100 transition-all">კითხვარის დაწყება</h4>
-            <h4 className="w-40 font-bold text-3xl absolute">კითხვარის დაწყება</h4>
+            <h4 className="w-40 font-bold text-3xl absolute text-primaryText">კითხვარის დაწყება</h4>
           </button>      
       </Link>
     </div>
