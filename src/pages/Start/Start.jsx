@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom'
 
 const Start = () => {
   return (
-    <div className="w-screen h-screen inline-flex flex-col items-center justify-center">
+    <div className="w-screen h-screen bg-bgMain inline-flex flex-col items-center justify-center">
       <img src={Logo} alt="" className="animate-shrink mb-20" />
       <Link to={'/personal'} >
           <button className="animate-appear group realtive w-80 h-40 inline-flex items-top justify-center">

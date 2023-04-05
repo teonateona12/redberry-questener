@@ -13,8 +13,8 @@ export default {
       },
       keyframes:{
         shrink:{
-          '0%':{transform: 'scale(30) rotate(45deg)'},
-          '100%':{transform: 'scale(1)'}
+          '0%':{transform: 'scale(30) rotate(45deg)', opacity:0.3},
+          '100%':{transform: 'scale(1)', opacity:1}
         },
         appear:{
           '0%':{opacity:0},
