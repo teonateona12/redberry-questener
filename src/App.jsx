@@ -5,9 +5,6 @@ import { updateData } from './store/applicantSlice'
 
 
 function App() {
-  const dispach = useDispatch()
-  const applicant = useSelector((store) => store.applicant) 
-  
   return (
     <>
       <Routes>
