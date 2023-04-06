@@ -10,7 +10,6 @@ function App() {
   
   return (
     <>
-      <button onClick={()=>handleUpdate()}>do</button>
       <Routes>
         <Route path='/' element={<Start/>}/>
         <Route path='/covid' element={<Covid/>}/>
