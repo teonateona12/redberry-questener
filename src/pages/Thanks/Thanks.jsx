@@ -1,6 +1,17 @@
 import { bigStar, smallStar } from "../../assets";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Thanks = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="w-full h-full flex justify-center items-center f-size bg-[#232323]">
       <div className="wrapper flex flex-col">
