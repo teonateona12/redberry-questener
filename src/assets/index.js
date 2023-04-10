@@ -6,3 +6,5 @@ export { default as OfficeImage } from "./office.png";
 export { default as Persons } from "./persons.png";
 export { default as Temperature } from "./temperature.png";
 export { default as Title } from "./title.png";
+export { default as smallStar} from "./starSmall.png";
+export { default as bigStar} from "./starBig.png";
