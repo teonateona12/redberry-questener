@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
 import temperature from "../../assets/temperature.png";
 import FormHeader from "../../components/FormHeader";
 
 const Covid = () => {
   const [covidStatus, setCovidStatus] = useState("");
   const [antibodyStatus, setAntibodyStatus] = useState("");
+  const [date, setDate] = useState("");
 
   const handleCovidStatusChange = (event) => {
     setCovidStatus(event.target.value);
   };
+
   const handleAntibodyStatusChange = (event) => {
     setAntibodyStatus(event.target.value);
+  };
+
+  const handleDateChange = (event) => {
+    const inputDate = event.target.value;
+    if (event.nativeEvent.inputType !== "deleteContentBackward") {
+      const formattedDate = formatInputDate(inputDate);
+      setDate(formattedDate);
+    } else {
+      setDate(inputDate);
+    }
+  };
+
+  const formatInputDate = (inputDate) => {
+    let formattedDate = inputDate
+      .replace(/[^\d\b]/g, "")
+      .slice(0, 8)
+      .replace(/^(\d{2})/, "$1/")
+      .replace(/^(\d{2}\/\d{2})/, "$1/")
+      .replace(/^(\d{2}\/\d{2}\/\d{4}).*/, "$1");
+
+    return formattedDate;
   };
 
   return (
@@ -119,6 +142,22 @@ const Covid = () => {
                   არა
                 </label>
               </div>
+            </form>
+          )}
+
+          {antibodyStatus === "no" && (
+            <form className="mt-[42px] flex flex-col gap-[18px]">
+              <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                მიუთითე მიახლოებითი პერიოდი (დღე/თვე/წელი) როდის გქონდა
+                Covid-19*
+              </label>
+              <input
+                type="text"
+                value={date}
+                onChange={handleDateChange}
+                placeholder="დდ/თთ/წწ"
+                className="border-[0.8px] border-[#232323] w-[513px] h-[50px] ml-[19px] bg-transparent mt-[11px] placeholder:text-[18px] placeholder:text-[#232323 px-[20px] py-[10px]"
+              />
             </form>
           )}
         </div>
