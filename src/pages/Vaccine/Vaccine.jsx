@@ -23,7 +23,7 @@ const Vaccine = () => {
   }
 
   return (
-    <div className="px-[200px] w-full h-full bg-bgMain text-primaryText">
+    <div className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
       <FormHeader partition={3}/>
       <div className="flex justify-between items-top">
         <div>
@@ -95,7 +95,7 @@ const Vaccine = () => {
             <a className="block text-link pl-[67px] text-xl mt-[39px]" href="https://booking.moh.gov.ge/">https://booking.moh.gov.ge/</a>
           ):""}
         </div>
-        <img className="h-[748px] mt-[36px]" src={Doctor} alt="" />
+        <img className="max-h-[748px] mt-[36px]" src={Doctor} alt="" />
       </div>
       <div className="flex items-center justify-center">
         <button onClick={() => navigate("/covid")} className="mr-[117px]"><img src={ArrowLeft} alt=""/></button>
