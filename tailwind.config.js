@@ -8,6 +8,7 @@ export default {
       colors: {
         bgMain: "#eaeaea",
         primaryText: "#232323",
+        link: "#1289AE"
       },
       animation: {
         shrink: "shrink 0.4s ease-out",
