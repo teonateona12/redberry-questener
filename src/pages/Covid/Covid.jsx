@@ -1,11 +1,15 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import temperature from "../../assets/temperature.png";
 import FormHeader from "../../components/FormHeader";
+import arrowleft from "../../assets/arrow-left.svg";
+import arrowright from "../../assets/arrow-right.svg";
 
 const Covid = () => {
   const [covidStatus, setCovidStatus] = useState("");
   const [antibodyStatus, setAntibodyStatus] = useState("");
   const [date, setDate] = useState("");
+  const navigate = useNavigate();
 
   const handleCovidStatusChange = (event) => {
     setCovidStatus(event.target.value);
@@ -37,7 +41,7 @@ const Covid = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col px-[200px] bg-[#EAEAEA;]">
+    <div className="w-full h-full flex flex-col px-[200px] bg-[#EAEAEA] ">
       <FormHeader partition={2} />
       <div className="flex justify-between">
         <div className="flex flex-col">
@@ -160,9 +164,40 @@ const Covid = () => {
               />
             </form>
           )}
+
+          {antibodyStatus === "yes" && (
+            <form className="mt-[42px] flex flex-col gap-[18px]">
+              <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                თუ გახსოვს, გთხოვ მიუთითე ტესტის მიახლოებითი რიცხვი და
+                ანტისხეულების რაოდენობა*
+              </label>
+              <input
+                type="number"
+                className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                placeholder="რიცხვი"
+              />
+              <input
+                type="number"
+                className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                placeholder="ანტისხეულების რაოდენობა"
+              />
+            </form>
+          )}
         </div>
 
         <img src={temperature} alt="man" />
+      </div>
+      <div className="flex gap-[117px] ml-auto mr-auto ">
+        <img
+          src={arrowleft}
+          className="cursor-pointer"
+          onClick={() => navigate("/personal")}
+        />
+        <img
+          src={arrowright}
+          className="cursor-pointer"
+          onClick={() => navigate("/vaccine")}
+        />
       </div>
     </div>
   );
