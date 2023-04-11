@@ -11,7 +11,6 @@ const Vaccine = () => {
   const navigate = useNavigate();
   const dispach = useDispatch()
   const applicant = useSelector((store) => store.applicant) 
-  console.log(applicant)
   const handleCovidChange = (e) => {
     const value = e.target.value === 'true';
     dispach(updateData({property: "had_vaccine", value: value}))
@@ -24,7 +23,7 @@ const Vaccine = () => {
   }
 
   return (
-    <div className="px-[200px] text-primaryText">
+    <div className="px-[200px] w-full h-full bg-bgMain text-primaryText">
       <FormHeader partition={3}/>
       <div className="flex justify-between items-top">
         <div>
@@ -98,8 +97,6 @@ const Vaccine = () => {
         </div>
         <img className="h-[748px] mt-[36px]" src={Doctor} alt="" />
       </div>
- 
-
       <div className="flex items-center justify-center">
         <button onClick={() => navigate("/covid")} className="mr-[117px]"><img src={ArrowLeft} alt=""/></button>
         <button onClick={() => navigate("/office")} disabled={!canAdvance}><img src={ArrowRight} className={canAdvance? "filter brightness-0": ""} alt="" /></button>
