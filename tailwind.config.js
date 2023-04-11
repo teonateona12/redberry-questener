@@ -37,5 +37,21 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    ({ addComponents }) => {
+      addComponents({
+        'input[type="radio"]:checked::after': {
+          content: '""',
+          display: 'block',
+          width: '17px',
+          height: '17px',
+          borderRadius: '50%',
+          backgroundColor: '#232323',
+          position: 'relative',
+          top: "2px",
+          left: "2px",
+        },
+      });
+    },
+  ],
 };
