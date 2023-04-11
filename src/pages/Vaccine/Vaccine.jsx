@@ -78,6 +78,23 @@ const Vaccine = () => {
             </div>
             </div> 
           ))}
+          {applicant.vaccination_stage=="first_dosage_and_not_registered_on_the_second"? (
+            <p className="w-[491px] pl-[67px] text-xl mt-[39px]">
+              რომ არ გადადო, <br/>
+              ბარემ ახლავე დარეგისტრირდი
+              <a className="block text-link" href="https://booking.moh.gov.ge/">https://booking.moh.gov.ge/</a>
+            </p>
+          ):""}
+          {applicant.vaccination_stage=="already_had_it_and_not_planning"? (
+            <div className="w-[550px] pl-[67px] text-xl mt-[39px]">
+              <p>ახალი პროტოკოლით კოვიდის გადატანიდან 1 თვის შემდეგ შეგიძლიათ ვაქცინის გაკეთება.</p>
+              <p>👉 რეგისტრაციის ბმული</p>
+              <a className="block text-link" href="https://booking.moh.gov.ge/">https://booking.moh.gov.ge/</a>
+            </div>          
+          ):""}
+          {applicant.vaccination_stage=="not_planning"? (
+            <a className="block text-link pl-[67px] text-xl mt-[39px]" href="https://booking.moh.gov.ge/">https://booking.moh.gov.ge/</a>
+          ):""}
         </div>
         <img className="h-[748px] mt-[36px]" src={Doctor} alt="" />
       </div>
