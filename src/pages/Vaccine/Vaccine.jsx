@@ -24,9 +24,8 @@ const Vaccine = () => {
     setCanAdvance(true)
     dispach(updateData({property: "vaccination_stage", value: e.target.value}))
   }
-  const schema = vaccineSchema
   const {register, handleSubmit, formState: {errors}} = new useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(vaccineSchema)
   })
   const onValid = () =>{
     navigate("/office")
