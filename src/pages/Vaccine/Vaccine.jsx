@@ -28,9 +28,12 @@ const Vaccine = () => {
   const {register, handleSubmit, formState: {errors}} = new useForm({
     resolver: yupResolver(schema)
   })
+  const onValid = () =>{
+    navigate("/office")
+  }
 
   return (
-    <div className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
+    <form onSubmit={handleSubmit(onValid)} className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
       <FormHeader partition={3}/>
       <div className="flex justify-between items-top">
         <div>
@@ -38,13 +41,14 @@ const Vaccine = () => {
             <label className="font-bold text-[22px] my-[8px]">უკვე აცრილი ხარ?*</label>
             <div className="flex flex-col justify-center pl-6">
               <label className="flex items-center h-[40px] text-xl">
-                <input onChange={e => {}} onClick={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="true" checked={applicant.had_vaccine===true} name="hadit"/>
+                <input {...register("had_vaccine")}  onChange={e => {}} onClick={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="true" checked={applicant.had_vaccine===true} name="had_vaccine"/>
                 კი
               </label>
               <label className="flex items-center h-[40px] text-xl">
-                <input onChange={e => {}} onClick={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="false" checked={applicant.had_vaccine===false} name="hadit"/>
+                <input {...register("had_vaccine")}  onChange={e => {}} onClick={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="false" checked={applicant.had_vaccine===false} name="had_vaccine"/>
                 არა
               </label>
+              <p className="text-error">{errors.had_vaccine?.message}</p>
             </div>
           </div>
           {applicant.had_vaccine == null? "" : (applicant.had_vaccine? (
@@ -52,15 +56,15 @@ const Vaccine = () => {
             <label className="font-bold text-[22px] my-[8px]">აირჩიე რა ეტაპზე ხარ*</label>
             <div className="flex flex-col justify-center pl-6">
                <label className="flex items-center h-[40px] text-xl">
-                 <input onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_registered_on_the_second"} name="stage"/>
+                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_registered_on_the_second"} name="vaccination_stage"/>
                  პირველი დოზა და დარეგისტრირებული ვარ მეორეზე
                </label>
                <label className="flex items-center h-[40px] text-xl">
-                 <input onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="fully_vaccinated" checked={applicant.vaccination_stage==="fully_vaccinated"} name="stage"/>
+                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="fully_vaccinated" checked={applicant.vaccination_stage==="fully_vaccinated"} name="vaccination_stage"/>
                  სრულად აცრილი ვარ
                </label>
                <label className="flex items-center h-[40px] text-xl">
-                 <input onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_not_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_not_registered_on_the_second"} name="stage"/>
+                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_not_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_not_registered_on_the_second"} name="vaccination_stage"/>
                  პირველი დოზა და არ დავრეგისტრირებულვარ მეორეზე
                </label>
             </div>
@@ -70,20 +74,21 @@ const Vaccine = () => {
             <label className="font-bold text-[22px] my-[8px]">რას ელოდები?*</label>
             <div className="flex flex-col justify-center pl-6">
                <label className="flex items-center  h-[40px] text-xl">
-                 <input onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="registered_and_waiting" checked={applicant.vaccination_stage==="registered_and_waiting"} name="stage"/>
+                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="registered_and_waiting" checked={applicant.vaccination_stage==="registered_and_waiting"} name="vaccination_stage"/>
                  დარეგისტრირებული ვარ და ველოდები რიცხვს
                </label>
                <label className="flex items-center h-[40px] text-xl">
-                 <input onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="not_planning" checked={applicant.vaccination_stage==="not_planning"} name="stage"/>
+                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="not_planning" checked={applicant.vaccination_stage==="not_planning"} name="vaccination_stage"/>
                  არ ვგეგმავ
                </label>
                <label className="flex items-center h-[40px] text-xl">
-                 <input onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="already_had_it_and_not_planning" checked={applicant.vaccination_stage==="already_had_it_and_not_planning"} name="stage"/>
+                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="already_had_it_and_not_planning" checked={applicant.vaccination_stage==="already_had_it_and_not_planning"} name="vaccination_stage"/>
                  გადატანილი მაქვს და ვგეგმავ აცრას
                </label>
             </div>
             </div> 
           ))}
+          <p className={applicant.had_vaccine==null? "hidden" : "text-error ml-6"}>{errors.vaccination_stage?.message}</p>
           {applicant.vaccination_stage=="first_dosage_and_not_registered_on_the_second"? (
             <p className="w-[491px] pl-[67px] text-xl mt-[39px]">
               რომ არ გადადო, <br/>
@@ -106,9 +111,9 @@ const Vaccine = () => {
       </div>
       <div className="flex items-center justify-center">
         <button onClick={() => navigate("/covid")} className="mr-[117px]"><img src={ArrowLeft} alt=""/></button>
-        <button onClick={() => navigate("/office")} disabled={!canAdvance}><img src={ArrowRight} className={canAdvance? "filter brightness-0": ""} alt="" /></button>
+        <button type="submit"><img src={ArrowRight} className={canAdvance? "filter brightness-0": ""} alt="" /></button>
       </div>
-    </div>
+    </form>
   );
 };
 
