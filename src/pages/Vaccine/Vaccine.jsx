@@ -30,7 +30,6 @@ const Vaccine = () => {
   const onValid = () =>{
     navigate("/office")
   }
-
   return (
     <form onSubmit={handleSubmit(onValid)} className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
       <FormHeader partition={3}/>
@@ -40,11 +39,11 @@ const Vaccine = () => {
             <label className="font-bold text-[22px] my-[8px]">უკვე აცრილი ხარ?*</label>
             <div className="flex flex-col justify-center pl-6">
               <label className="flex items-center h-[40px] text-xl">
-                <input {...register("had_vaccine")}  onChange={e => {}} onClick={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="true" checked={applicant.had_vaccine===true} name="had_vaccine"/>
+                <input {...register("had_vaccine")}  onChange={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="true" checked={applicant.had_vaccine===true} name="had_vaccine"/>
                 კი
               </label>
               <label className="flex items-center h-[40px] text-xl">
-                <input {...register("had_vaccine")}  onChange={e => {}} onClick={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="false" checked={applicant.had_vaccine===false} name="had_vaccine"/>
+                <input {...register("had_vaccine")}  onChange={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="false" checked={applicant.had_vaccine===false} name="had_vaccine"/>
                 არა
               </label>
               <p className="text-error">{errors.had_vaccine?.message}</p>
@@ -55,15 +54,15 @@ const Vaccine = () => {
             <label className="font-bold text-[22px] my-[8px]">აირჩიე რა ეტაპზე ხარ*</label>
             <div className="flex flex-col justify-center pl-6">
                <label className="flex items-center h-[40px] text-xl">
-                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_registered_on_the_second"} name="vaccination_stage"/>
+                 <input {...register("vaccination_stage")} onChange={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_registered_on_the_second"} name="vaccination_stage"/>
                  პირველი დოზა და დარეგისტრირებული ვარ მეორეზე
                </label>
                <label className="flex items-center h-[40px] text-xl">
-                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="fully_vaccinated" checked={applicant.vaccination_stage==="fully_vaccinated"} name="vaccination_stage"/>
+                 <input {...register("vaccination_stage")} onChange={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="fully_vaccinated" checked={applicant.vaccination_stage==="fully_vaccinated"} name="vaccination_stage"/>
                  სრულად აცრილი ვარ
                </label>
                <label className="flex items-center h-[40px] text-xl">
-                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_not_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_not_registered_on_the_second"} name="vaccination_stage"/>
+                 <input {...register("vaccination_stage")} onChange={handleDosage} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="first_dosage_and_not_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_not_registered_on_the_second"} name="vaccination_stage"/>
                  პირველი დოზა და არ დავრეგისტრირებულვარ მეორეზე
                </label>
             </div>
