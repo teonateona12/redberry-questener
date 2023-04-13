@@ -7,6 +7,7 @@ export default {
     extend: {      
       colors: {
         bgMain: "#eaeaea",
+        error: "#F15524",
         primaryText: "#232323",
         link: "#1289AE"
       },
