@@ -5,6 +5,7 @@ import FormHeader from "../../components/FormHeader";
 import { ArrowLeft , ArrowRight, Doctor } from "../../assets";
 import { useForm } from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'
+import vaccineSchema from "../../schemas/vaccineValidationSchema";
 import { useState} from "react";
 
 
@@ -23,6 +24,10 @@ const Vaccine = () => {
     setCanAdvance(true)
     dispach(updateData({property: "vaccination_stage", value: e.target.value}))
   }
+  const schema = vaccineSchema
+  const {register, handleSubmit, formState: {errors}} = new useForm({
+    resolver: yupResolver(schema)
+  })
 
   return (
     <div className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
