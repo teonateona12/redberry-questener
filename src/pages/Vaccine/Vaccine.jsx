@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateData} from '../../store/applicantSlice'
 import FormHeader from "../../components/FormHeader";
 import { ArrowLeft , ArrowRight, Doctor } from "../../assets";
+import { useForm } from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup'
 import { useState} from "react";
 
 
