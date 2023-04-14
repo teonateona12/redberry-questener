@@ -46,7 +46,7 @@ const Vaccine = () => {
                 <input {...register("had_vaccine")}  onChange={handleCovidChange} type="radio" className="mr-[19px] appearance-none w-[23px] h-[23px] rounded-full border border-[#232323] checked:border-[#232323]" value="false" checked={applicant.had_vaccine===false} name="had_vaccine"/>
                 არა
               </label>
-              <p className="text-error">{errors.had_vaccine?.message}</p>
+              <p className={applicant.had_vaccine!==null?"hidden":"text-error"}>{errors.had_vaccine?.message}</p>
             </div>
           </div>
           {applicant.had_vaccine == null? "" : (applicant.had_vaccine? (
@@ -86,7 +86,7 @@ const Vaccine = () => {
             </div>
             </div> 
           ))}
-          <p className={applicant.had_vaccine==null? "hidden" : "text-error ml-6"}>{errors.vaccination_stage?.message}</p>
+          <p className={applicant.had_vaccine === null || applicant.vaccination_stage.length>0? "hidden" : "text-error ml-6"}>{errors.vaccination_stage?.message}</p>
           {applicant.vaccination_stage=="first_dosage_and_not_registered_on_the_second"? (
             <p className="w-[491px] pl-[67px] text-xl mt-[39px]">
               რომ არ გადადო, <br/>
