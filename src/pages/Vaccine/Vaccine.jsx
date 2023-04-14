@@ -14,21 +14,22 @@ const Vaccine = () => {
   const navigate = useNavigate();
   const dispach = useDispatch()
   const applicant = useSelector((store) => store.applicant) 
-  const handleCovidChange = (e) => {
-    const value = e.target.value === 'true';
-    dispach(updateData({property: "had_vaccine", value: value}))
-    dispach(updateData({property: "vaccination_stage", value: ""}))
-    canAdvance&&setCanAdvance(false)
-  }
   const handleDosage = (e) => {
     setCanAdvance(true)
     dispach(updateData({property: "vaccination_stage", value: e.target.value}))
   }
-  const {register, handleSubmit, formState: {errors}} = new useForm({
+  const {register, handleSubmit, setValue, formState: {errors}} = new useForm({
     resolver: yupResolver(vaccineSchema)
   })
-  const onValid = () =>{
-    navigate("/office")
+  const onValid = (data) =>{
+    canAdvance&&navigate("/office")
+  }
+  const handleCovidChange = (e) => {
+    const value = e.target.value === 'true';
+    dispach(updateData({property: "had_vaccine", value: value}))
+    dispach(updateData({property: "vaccination_stage", value: null}))
+    setValue("vaccination_stage", null)
+    canAdvance&&setCanAdvance(false)
   }
   return (
     <form onSubmit={handleSubmit(onValid)} className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
@@ -86,7 +87,7 @@ const Vaccine = () => {
             </div>
             </div> 
           ))}
-          <p className={applicant.had_vaccine === null || applicant.vaccination_stage.length>0? "hidden" : "text-error ml-6"}>{errors.vaccination_stage?.message}</p>
+          <p className={applicant.had_vaccine === null || applicant.vaccination_stage !== null? "hidden" : "text-error ml-6"}>{errors.vaccination_stage?.message}</p>
           {applicant.vaccination_stage=="first_dosage_and_not_registered_on_the_second"? (
             <p className="w-[491px] pl-[67px] text-xl mt-[39px]">
               რომ არ გადადო, <br/>
