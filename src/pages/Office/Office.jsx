@@ -71,9 +71,9 @@ const Office = () => {
                 5
               </label>
           </div>
-          <label className="font-bold text-[22px] mt-[43px]">რას ფიქრობ ფიზიკურ შეკრებებზე?</label>
+          <label className="font-bold text-[22px] mt-[51px]">რას ფიქრობ ფიზიკურ შეკრებებზე?</label>
           <input type="text" className="border border-gray-700 bg-transparent h-[184px] mt-[20px]"/>
-          <label className="font-bold text-[22px] mt-[43px]">რას ფიქრობ არსებულ გარემოზე:<br/>რა მოგწონს, რას დაამატებდი, რას შეცვლიდი?</label>
+          <label className="font-bold text-[22px] mt-[47px]">რას ფიქრობ არსებულ გარემოზე:<br/>რა მოგწონს, რას დაამატებდი, რას შეცვლიდი?</label>
           <input type="text" className="border border-gray-700 bg-transparent h-[184px] mt-[20px]"/>
           </div>
 
