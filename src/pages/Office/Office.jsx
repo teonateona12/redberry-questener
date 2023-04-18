@@ -16,9 +16,7 @@ const Office = () => {
   const applicant = useSelector((store) => store.applicant) 
   const handleApplicantChange = (e) => {
     e.target.name=="number_of_days_from_office"? dispach(updateData({property: e.target.name, value: +e.target.value})) : dispach(updateData({property: e.target.name, value: e.target.value}))
-    console.log(e.target.name, e.target.value)
   }
-  console.log(applicant)
 
   return (
     <form className="px-[200px] bg-bgMain text-primaryText overflow-x-hidden">
