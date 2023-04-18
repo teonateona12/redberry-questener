@@ -1,6 +1,5 @@
 import FormHeader from "../../components/FormHeader";
 import { ArrowLeft , ArrowRight, OfficeImage } from "../../assets";
-import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { updateData } from '../../store/applicantSlice'
@@ -10,7 +9,6 @@ import { updateData } from '../../store/applicantSlice'
 
 
 const Office = () => {
-  const [canAdvance, setCanAdvance] = useState(false);
   const navigate = useNavigate();
   const dispach = useDispatch()
   const applicant = useSelector((store) => store.applicant) 
@@ -78,13 +76,13 @@ const Office = () => {
               </label>
           </div>
           <label className="font-bold text-[22px] mt-[51px]">რას ფიქრობ ფიზიკურ შეკრებებზე?</label>
-          <input onChange={handleApplicantChange} value={applicant.what_about_meetings_in_live} type="text" className="border border-gray-700 bg-transparent h-[184px] mt-[20px] flex justify-start items-start" name="what_about_meetings_in_live"/>
+          <input onChange={handleApplicantChange} value={applicant.what_about_meetings_in_live} type="text" className="p-[10px] text-xl border border-gray-700 bg-transparent h-[184px] mt-[20px]" name="what_about_meetings_in_live"/>
           <label className="font-bold text-[22px] mt-[47px]">რას ფიქრობ არსებულ გარემოზე:<br/>რა მოგწონს, რას დაამატებდი, რას შეცვლიდი?</label>
-          <input onChange={handleApplicantChange} value={applicant.tell_us_your_opinion_about_us} type="text" className="border border-gray-700 bg-transparent h-[184px] mt-[20px] flex justify-start items-start" name="tell_us_your_opinion_about_us"/>
+          <input onChange={handleApplicantChange} value={applicant.tell_us_your_opinion_about_us} type="text" className="p-[10px] text-xl border border-gray-700 bg-transparent h-[184px] mt-[20px]" name="tell_us_your_opinion_about_us"/>
           </div>
 
           <div className="flex justify-end mt-[54px] mb-[90px]">
-            <button className={canAdvance? "bg-[#208298] h-[56px] w-[180px] rounded-full text-white font-bold text-xl flex justify-center items-center" : "bg-[#999] h-[56px] w-[180px] rounded-full text-white font-bold text-xl flex justify-center items-center"} type="submit">
+            <button className={applicant.non_formal_meetings!=""&&applicant.number_of_days_from_office!=null? "bg-[#208298] h-[56px] w-[180px] rounded-full text-white font-bold text-xl flex justify-center items-center" : "bg-[#999] h-[56px] w-[180px] rounded-full text-white font-bold text-xl flex justify-center items-center"} type="submit">
                 დასრულება
             </button>
           </div>
