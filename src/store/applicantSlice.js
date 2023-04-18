@@ -5,6 +5,7 @@ const applicant = {
     last_name: '',
     email: '',
     had_covid: '',
+
     had_covid_date: '',
     had_antibody_test: false,
     antibodies_test_date: '',
