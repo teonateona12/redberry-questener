@@ -1,8 +1,8 @@
 import FormHeader from "../../components/FormHeader";
 import { ArrowLeft , ArrowRight, OfficeImage } from "../../assets";
 import { useState} from "react";
+import { useNavigate } from "react-router-dom";
 //გამზადებული იმპორტები მომავალი ფუნქციებისთვის
-// import { useNavigate } from "react-router-dom";
 // import { useDispatch, useSelector } from 'react-redux'
 // import { updateData } from '../../store/applicantSlice'
 // import { useForm } from 'react-hook-form';
@@ -11,9 +11,10 @@ import { useState} from "react";
 
 const Office = () => {
   const [canAdvance, setCanAdvance] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <form className="px-[200px] text-primaryText overflow-x-hidden">
+    <form className="px-[200px] bg-bgMain text-primaryText overflow-x-hidden">
       <FormHeader partition={4}/> 
       <div className="flex justify-between items-top">
         <div className="w-[606px] min-w-[500px]">
@@ -86,7 +87,7 @@ const Office = () => {
         <img className="mt-[71px] max-w-[703px] max-h-[703px]" src={OfficeImage} alt="" />
         </div>
       <div className="flex items-center justify-center mb-[103.37px]">
-        <button className="mr-[117px]">
+        <button onClick={()=>{navigate("/vaccine")}} className="mr-[117px]">
           <img src={ArrowLeft} alt="" />
         </button>
       </div>
