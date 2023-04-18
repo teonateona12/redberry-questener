@@ -5,12 +5,12 @@ const applicant = {
     last_name: '',
     email: '',
     had_covid: '',
-    had_antibody_test: null,
-    antibodies: {
-      test_date: '',
-      number: 0,
-    },
-    had_vaccine: null,
+
+    had_covid_date: '',
+    had_antibody_test: false,
+    antibodies_test_date: '',
+    antibodies_number: 0,
+    had_vaccine: false,
     vaccination_stage: '',
     non_formal_meetings: '',
     number_of_days_from_office: 0,

@@ -1,23 +1,22 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
+import { updateData } from "../../store/applicantSlice";
+import { yupResolver } from "@hookform/resolvers/yup";
 import temperature from "../../assets/temperature.png";
 import FormHeader from "../../components/FormHeader";
 import arrowleft from "../../assets/arrow-left.svg";
-import arrowright from "../../assets/arrow-right.svg";
+import arrowright from "../../assets/Vector 2.png";
 
 const Covid = () => {
+  const applicantForm = useSelector((store) => store.applicant);
+  const dispatch = useDispatch();
   const [covidStatus, setCovidStatus] = useState("");
   const [antibodyStatus, setAntibodyStatus] = useState("");
   const [date, setDate] = useState("");
   const navigate = useNavigate();
-
-  const handleCovidStatusChange = (event) => {
-    setCovidStatus(event.target.value);
-  };
-
-  const handleAntibodyStatusChange = (event) => {
-    setAntibodyStatus(event.target.value);
-  };
 
   const handleDateChange = (event) => {
     const inputDate = event.target.value;
@@ -36,28 +35,84 @@ const Covid = () => {
       .replace(/^(\d{2})/, "$1/")
       .replace(/^(\d{2}\/\d{2})/, "$1/")
       .replace(/^(\d{2}\/\d{2}\/\d{4}).*/, "$1");
-
     return formattedDate;
   };
+
+  const antibodies = useSelector((state) => state.antibodies);
+
+  const schema = yup.object().shape({
+    covidStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
+    antibodyStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
+    date: yup.string().when("antibodyStatus", {
+      is: "no",
+      then: (schema) =>
+        schema
+          .min(10, "გთხოვთ, სრულად შეავსოთ თარი")
+          .required("Please enter a date"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    antibodyTestDate: yup.string().when("antibodyStatus", {
+      is: "yes",
+      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რიცხვი"),
+    }),
+    antibodyCount: yup.string().when("antibodyStatus", {
+      is: "yes",
+      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რაოდენობა"),
+    }),
+  });
+
+  const onSubmit = (data) => {
+    dispatch(updateData({ property: "had_covid", value: covidStatus }));
+    dispatch(
+      updateData({
+        property: "had_antibody_test",
+        value: antibodyStatus === "yes" ? true : false,
+      })
+    );
+    dispatch(updateData({ property: "had_covid_date", value: date }));
+    dispatch(
+      updateData({
+        property: "antibody_test_date",
+        value: data.antibodyTestDate,
+      })
+    );
+    dispatch(
+      updateData({
+        property: "antibody_number",
+        value: data.antibodyCount,
+      })
+    );
+
+    navigate("/vaccine");
+  };
+
+  const {
+    register,
+    formState: { errors, isSubmitted },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   return (
     <div className="w-full h-full flex flex-col px-[200px] bg-[#EAEAEA] ">
       <FormHeader partition={2} />
+
       <div className="flex justify-between">
         <div className="flex flex-col">
           <form className="mt-[42px] flex flex-col gap-[18px]">
             <label className="font-bold text-[22px] leading-6 text-[#232323]">
               გაქვს გადატანილი Covid-19?*
             </label>
-
             <div className="flex items-center ml-[19px]">
               <input
+                {...register("covidStatus")}
                 type="radio"
                 name="covidStatus"
                 id="covid-yes"
                 value="yes"
                 checked={covidStatus === "yes"}
-                onChange={handleCovidStatusChange}
+                onChange={(event) => setCovidStatus(event.target.value)}
                 className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
@@ -67,15 +122,15 @@ const Covid = () => {
                 კი
               </label>
             </div>
-
             <div className="flex items-center ml-[19px]">
               <input
+                {...register("covidStatus")}
                 type="radio"
                 name="covidStatus"
                 id="covid-no"
                 value="no"
                 checked={covidStatus === "no"}
-                onChange={handleCovidStatusChange}
+                onChange={(event) => setCovidStatus(event.target.value)}
                 className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
@@ -85,15 +140,15 @@ const Covid = () => {
                 არა
               </label>
             </div>
-
             <div className="flex items-center ml-[19px]">
               <input
+                {...register("covidStatus")}
                 type="radio"
                 name="covidStatus"
                 id="covid-currently"
                 value="currently"
                 checked={covidStatus === "currently"}
-                onChange={handleCovidStatusChange}
+                onChange={(event) => setCovidStatus(event.target.value)}
                 className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
@@ -103,100 +158,138 @@ const Covid = () => {
                 ახლა მაქვს
               </label>
             </div>
+
+            {covidStatus ? null : (
+              <>
+                {errors.covidStatus && (
+                  <p className="font-[400] text-[16px] text-[#F15524]">
+                    {errors.covidStatus.message}
+                  </p>
+                )}
+              </>
+            )}
+
+            {covidStatus === "yes" && (
+              <div className="mt-[42px] flex flex-col gap-[18px]">
+                <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                  ანტისხეულების ტესტი გაქვს გაკეთებული?*
+                </label>
+
+                <div className="flex items-center ml-[19px]">
+                  <input
+                    {...register("antibodyStatus")}
+                    type="radio"
+                    name="antibodyStatus"
+                    id="antibody-yes"
+                    value="yes"
+                    checked={antibodyStatus === "yes"}
+                    onChange={(event) => setAntibodyStatus(event.target.value)}
+                    className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                  />
+                  <label
+                    htmlFor="antibody-yes"
+                    className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                  >
+                    კი
+                  </label>
+                </div>
+
+                <div className="flex items-center ml-[19px]">
+                  <input
+                    {...register("antibodyStatus")}
+                    type="radio"
+                    name="antibodyStatus"
+                    id="antibody-no"
+                    value="no"
+                    checked={antibodyStatus === "no"}
+                    onChange={(event) => setAntibodyStatus(event.target.value)}
+                    className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                  />
+                  <label
+                    htmlFor="antibody-no"
+                    className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                  >
+                    არა
+                  </label>
+                </div>
+
+                {isSubmitted && !antibodyStatus && errors.antibodyStatus && (
+                  <p className="font-[400] text-[16px] text-[#F15524]">
+                    {errors.antibodyStatus.message}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {covidStatus === "yes" && antibodyStatus === "no" && (
+              <div className="mt-[42px] flex flex-col gap-[18px]">
+                <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                  მიუთითე მიახლოებითი პერიოდი (დღე/თვე/წელი) როდის გქონდა
+                  Covid-19*
+                </label>
+                <input
+                  {...register("date")}
+                  type="text"
+                  value={date}
+                  onChange={handleDateChange}
+                  placeholder="დდ/თთ/წწ"
+                  className="border-[0.8px] border-[#232323] w-[513px] h-[50px] ml-[19px] bg-transparent mt-[11px] placeholder:text-[18px] placeholder:text-[#232323 px-[20px] py-[10px]"
+                />
+                {!date || errors.date ? (
+                  <>
+                    {errors.date && (
+                      <p className="font-[400] text-[16px] text-[#F15524]">
+                        {errors.date.message}
+                      </p>
+                    )}
+                  </>
+                ) : null}
+              </div>
+            )}
+
+            {covidStatus === "yes" && antibodyStatus === "yes" && (
+              <div className="mt-[42px] flex flex-col gap-[18px]">
+                <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                  თუ გახსოვს, გთხოვ მიუთითე ტესტის მიახლოებითი რიცხვი და
+                  ანტისხეულების რაოდენობა*
+                </label>
+                <input
+                  {...register("antibodyTestDate")}
+                  className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  placeholder="რიცხვი"
+                />
+                <input
+                  {...register("antibodyCount")}
+                  type="number"
+                  className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  placeholder="ანტისხეულების რაოდენობა"
+                />
+                {errors.antibodyTestDate || errors.antibodyCount ? (
+                  <>
+                    <p className="font-[400] text-[16px] text-[#F15524]">
+                      გთხოვთ, სრულად შეავსოთ მოცემული ველი
+                    </p>
+                  </>
+                ) : null}
+              </div>
+            )}
           </form>
-
-          {covidStatus === "yes" && (
-            <form className="mt-[42px] flex flex-col gap-[18px]">
-              <label className="font-bold text-[22px] leading-6 text-[#232323]">
-                ანტისხეულების ტესტი გაქვს გაკეთებული?*
-              </label>
-
-              <div className="flex items-center ml-[19px]">
-                <input
-                  type="radio"
-                  name="antibodyStatus"
-                  id="antibody-yes"
-                  value="yes"
-                  checked={antibodyStatus === "yes"}
-                  onChange={handleAntibodyStatusChange}
-                  className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
-                />
-                <label
-                  htmlFor="antibody-yes"
-                  className="ml-[19px] font-[400] text-[20px] text-[#000000]"
-                >
-                  კი
-                </label>
-              </div>
-
-              <div className="flex items-center ml-[19px]">
-                <input
-                  type="radio"
-                  name="antibodyStatus"
-                  id="antibody-no"
-                  value="no"
-                  checked={antibodyStatus === "no"}
-                  onChange={handleAntibodyStatusChange}
-                  className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
-                />
-                <label
-                  htmlFor="antibody-no"
-                  className="ml-[19px] font-[400] text-[20px] text-[#000000]"
-                >
-                  არა
-                </label>
-              </div>
-            </form>
-          )}
-
-          {antibodyStatus === "no" && (
-            <form className="mt-[42px] flex flex-col gap-[18px]">
-              <label className="font-bold text-[22px] leading-6 text-[#232323]">
-                მიუთითე მიახლოებითი პერიოდი (დღე/თვე/წელი) როდის გქონდა
-                Covid-19*
-              </label>
-              <input
-                type="text"
-                value={date}
-                onChange={handleDateChange}
-                placeholder="დდ/თთ/წწ"
-                className="border-[0.8px] border-[#232323] w-[513px] h-[50px] ml-[19px] bg-transparent mt-[11px] placeholder:text-[18px] placeholder:text-[#232323 px-[20px] py-[10px]"
-              />
-            </form>
-          )}
-
-          {antibodyStatus === "yes" && (
-            <form className="mt-[42px] flex flex-col gap-[18px]">
-              <label className="font-bold text-[22px] leading-6 text-[#232323]">
-                თუ გახსოვს, გთხოვ მიუთითე ტესტის მიახლოებითი რიცხვი და
-                ანტისხეულების რაოდენობა*
-              </label>
-              <input
-                type="number"
-                className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                placeholder="რიცხვი"
-              />
-              <input
-                type="number"
-                className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                placeholder="ანტისხეულების რაოდენობა"
-              />
-            </form>
-          )}
         </div>
 
         <img src={temperature} alt="man" />
       </div>
+
       <div className="flex gap-[117px] ml-auto mr-auto ">
         <img
           src={arrowleft}
           className="cursor-pointer"
           onClick={() => navigate("/personal")}
         />
+
         <img
           src={arrowright}
           className="cursor-pointer"
-          onClick={() => navigate("/vaccine")}
+          onClick={handleSubmit(onSubmit)}
         />
       </div>
     </div>
