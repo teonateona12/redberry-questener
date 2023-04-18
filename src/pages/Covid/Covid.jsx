@@ -2,6 +2,8 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
+import { updateData } from "../../store/applicantSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import temperature from "../../assets/temperature.png";
 import FormHeader from "../../components/FormHeader";
@@ -9,6 +11,8 @@ import arrowleft from "../../assets/arrow-left.svg";
 import arrowright from "../../assets/Vector 2.png";
 
 const Covid = () => {
+  const applicantForm = useSelector((store) => store.applicant);
+  const dispatch = useDispatch();
   const [covidStatus, setCovidStatus] = useState("");
   const [antibodyStatus, setAntibodyStatus] = useState("");
   const [date, setDate] = useState("");
@@ -34,14 +38,51 @@ const Covid = () => {
     return formattedDate;
   };
 
+  const antibodies = useSelector((state) => state.antibodies);
+
   const schema = yup.object().shape({
     covidStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
     antibodyStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
-    date: yup.string().min(10, "გთხოვთ,სრულად შეავსოთ თარიღი").required(),
+    date: yup.string().when("antibodyStatus", {
+      is: "no",
+      then: (schema) =>
+        schema
+          .min(10, "გთხოვთ, სრულად შეავსოთ თარი")
+          .required("Please enter a date"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    antibodyTestDate: yup.string().when("antibodyStatus", {
+      is: "yes",
+      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რიცხვი"),
+    }),
+    antibodyCount: yup.string().when("antibodyStatus", {
+      is: "yes",
+      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რაოდენობა"),
+    }),
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(updateData({ property: "had_covid", value: covidStatus }));
+    dispatch(
+      updateData({
+        property: "had_antibody_test",
+        value: antibodyStatus === "yes" ? true : false,
+      })
+    );
+    dispatch(updateData({ property: "had_covid_date", value: date }));
+    dispatch(
+      updateData({
+        property: "antibody_test_date",
+        value: data.antibodyTestDate,
+      })
+    );
+    dispatch(
+      updateData({
+        property: "antibody_number",
+        value: data.antibodyCount,
+      })
+    );
+
     navigate("/vaccine");
   };
 
@@ -53,11 +94,6 @@ const Covid = () => {
     resolver: yupResolver(schema),
   });
 
-  {
-    errors.antibodyStatus ? console.log(errors) : null;
-  }
-
-  console.log(antibodyStatus);
   return (
     <div className="w-full h-full flex flex-col px-[200px] bg-[#EAEAEA] ">
       <FormHeader partition={2} />
@@ -218,15 +254,23 @@ const Covid = () => {
                   ანტისხეულების რაოდენობა*
                 </label>
                 <input
-                  type="number"
+                  {...register("antibodyTestDate")}
                   className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   placeholder="რიცხვი"
                 />
                 <input
+                  {...register("antibodyCount")}
                   type="number"
                   className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   placeholder="ანტისხეულების რაოდენობა"
                 />
+                {errors.antibodyTestDate || errors.antibodyCount ? (
+                  <>
+                    <p className="font-[400] text-[16px] text-[#F15524]">
+                      გთხოვთ, სრულად შეავსოთ მოცემული ველი
+                    </p>
+                  </>
+                ) : null}
               </div>
             )}
           </form>
