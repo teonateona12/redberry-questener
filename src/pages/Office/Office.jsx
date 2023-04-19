@@ -3,9 +3,8 @@ import { ArrowLeft , ArrowRight, OfficeImage } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { updateData } from '../../store/applicantSlice'
-//გამზადებული იმპორტები მომავალი ფუნქციებისთვის
-// import { useForm } from 'react-hook-form';
-// import { yupResolver} from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form';
+import { yupResolver} from '@hookform/resolvers/yup'
 
 
 const Office = () => {
