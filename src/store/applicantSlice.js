@@ -13,7 +13,7 @@ const applicant = {
     had_vaccine: false,
     vaccination_stage: '',
     non_formal_meetings: '',
-    number_of_days_from_office: 0,
+    number_of_days_from_office: null,
     what_about_meetings_in_live: '',
     tell_us_your_opinion_about_us: '',
 };
