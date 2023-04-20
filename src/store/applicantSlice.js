@@ -24,6 +24,9 @@ const applicantSlice = createSlice({
     reducers: {
         updateData: (state, action) => {
             state[action.payload.property] = action.payload.value;
+        },
+        updateLocal: (state, action) => {
+            return { ...state, ...action.payload };
         }
     }
 })
