@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Covid, Office, Personal, Start, Thanks, Vaccine } from "./pages";
 import { useDispatch, useSelector } from 'react-redux'
-import { updateLocal } from '../../store/applicantSlice'
+import { updateLocal } from './store/applicantSlice'
 import { useEffect } from 'react'
 
 function App() {

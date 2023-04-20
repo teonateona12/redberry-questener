@@ -31,5 +31,5 @@ const applicantSlice = createSlice({
     }
 })
 
-export const {updateData} = applicantSlice.actions
+export const {updateData, updateLocal} = applicantSlice.actions
 export default applicantSlice.reducer

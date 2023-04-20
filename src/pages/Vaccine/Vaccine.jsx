@@ -6,7 +6,7 @@ import { ArrowLeft , ArrowRight, Doctor } from "../../assets";
 import { useForm } from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'
 import vaccineSchema from "../../schemas/vaccineValidationSchema";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 
 
 const Vaccine = () => {
@@ -14,6 +14,10 @@ const Vaccine = () => {
   const navigate = useNavigate();
   const dispach = useDispatch()
   const applicant = useSelector((store) => store.applicant) 
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    hasMounted? localStorage.setItem('localUser', JSON.stringify(applicant)) : setHasMounted(true);
+  }, [applicant, hasMounted]);
   const handleDosage = (e) => {
     setCanAdvance(true)
     dispach(updateData({property: "vaccination_stage", value: e.target.value}))
