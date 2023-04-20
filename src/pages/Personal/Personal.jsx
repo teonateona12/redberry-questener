@@ -3,15 +3,23 @@ import FormHeader from "../../components/FormHeader";
 import { ArrowRight } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import * as yup from 'yup'
+import {yupResolver} from '@hookform/resolvers/yup'
+
 
 const Personal = () => {
   const navigate = useNavigate();
   
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm();
+  const schema = yup.object().shape({
+    name: yup.string().required().min(2),
+    email: yup.string().email().required().matches(/@redberry\.ge$/, 'Email must end with " @redberry.ge"'),
+    surname: yup.string().required().min(2),
+  })
+
+
+    const {  register,handleSubmit, formState: { errors } } = useForm({
+      resolver: yupResolver(schema),
+    });
   
   const onSubmit = (data) => {
     console.log(data);
@@ -30,7 +38,7 @@ const Personal = () => {
               <input
                 className="mt-[1px] border-2 border-[#232323]   "
                 type="text"
-                {...register("name", { required: true, minLength: 2 })}
+                {...register("name" )}
               />
             </div>
             <div className="mt-[47px]">
@@ -38,7 +46,7 @@ const Personal = () => {
               <input
                 className="mt-[1px] border-2 border-[#232323]"
                 type="text"
-                {...register("surname" , { required: true, minLength: 2 })}
+                {...register("surname")}
               />
             </div>
             <div className="mt-[47px]">
@@ -46,7 +54,7 @@ const Personal = () => {
               <input
                 className="mt-[1px] border-2 border-[#232323]"
                 type="email"
-                {...register("email", { required: true, })}
+                {...register("email")}
 
               />
             </div>
