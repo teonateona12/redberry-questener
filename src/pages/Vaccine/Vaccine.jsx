@@ -33,7 +33,7 @@ const Vaccine = () => {
     setValue("vaccination_stage", null)
   }
   return (
-    <form onSubmit={handleSubmit(onValid)} className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
+  <form onSubmit={handleSubmit(onValid)} className="px-40 w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
   <FormHeader partition={3}/>
   <div className="flex justify-between items-top">
     <div>
