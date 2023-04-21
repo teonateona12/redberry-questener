@@ -8,7 +8,6 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import vaccineSchema from "../../schemas/vaccineValidationSchema";
 import { useState, useEffect} from "react";
 
-
 const Vaccine = () => {
   const navigate = useNavigate();
   const dispach = useDispatch()
@@ -18,7 +17,7 @@ const Vaccine = () => {
     hasMounted? localStorage.setItem('localUser', JSON.stringify(applicant)) : setHasMounted(true);
   }, [applicant, hasMounted]);
   const handleDosage = (e) => {
-    dispach(updateData({property: "vaccination_stage", value: e.target.value}))
+    dispach(updateData({property: e.target.name, value: e.target.value}))
   }
   const {register, handleSubmit, setValue, formState: {errors}} = new useForm({
     resolver: yupResolver(vaccineSchema)
@@ -30,7 +29,9 @@ const Vaccine = () => {
     const value = e.target.value === 'true';
     dispach(updateData({property: "had_vaccine", value: value}))
     dispach(updateData({property: "vaccination_stage", value: null}))
+    dispach(updateData({property: "i_am_waiting", value: null}))
     setValue("vaccination_stage", null)
+    setValue("i_am_waiting", null)
   }
   return (
   <form onSubmit={handleSubmit(onValid)} className="px-40 w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
@@ -64,7 +65,7 @@ const Vaccine = () => {
                  სრულად აცრილი ვარ
            </label>
            <label className="flex items-center h-10 text-xl">
-             <input {...register("vaccination_stage")} onChange={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="first_dosage_and_not_registered_on_the_second" checked={applicant.vaccination_stage==="first_dosage_and_not_registered_on_the_second"} name="vaccination_stage"/>
+             <input {...register("vaccination_stage")} onChange={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="first_dosage_and_not_registered_yet" checked={applicant.vaccination_stage==="first_dosage_and_not_registered_yet"} name="vaccination_stage"/>
                  პირველი დოზა და არ დავრეგისტრირებულვარ მეორეზე
            </label>
             </div>
@@ -74,15 +75,15 @@ const Vaccine = () => {
             <label className="font-bold text-2xl my-2">რას ელოდები?*</label>
             <div className="flex flex-col justify-center pl-6">
                <label className="flex items-center h-10 text-xl">
-                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="registered_and_waiting" checked={applicant.vaccination_stage==="registered_and_waiting"} name="vaccination_stage"/>
+                 <input {...register("i_am_waiting")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="registered_and_waiting" checked={applicant.i_am_waiting==="registered_and_waiting"} name="i_am_waiting"/>
                  დარეგისტრირებული ვარ და ველოდები რიცხვს
                </label>
                <label className="flex items-center h-10 text-xl">
-                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="not_planning" checked={applicant.vaccination_stage==="not_planning"} name="vaccination_stage"/>
+                 <input {...register("i_am_waiting")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="not_planning" checked={applicant.i_am_waiting==="not_planning"} name="i_am_waiting"/>
                  არ ვგეგმავ
                </label>
                <label className="flex items-center h-10 text-xl">
-                 <input {...register("vaccination_stage")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="already_had_it_and_not_planning" checked={applicant.vaccination_stage==="already_had_it_and_not_planning"} name="vaccination_stage"/>
+                 <input {...register("i_am_waiting")} onChange={e => {}} onClick={handleDosage} type="radio" className="mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="had_covid_and_planning_to_be_vaccinated" checked={applicant.i_am_waiting==="had_covid_and_planning_to_be_vaccinated"} name="i_am_waiting"/>
                  გადატანილი მაქვს და ვგეგმავ აცრას
                </label>
             </div>

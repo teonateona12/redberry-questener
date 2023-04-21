@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { ArrowLeft , OfficeImage } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { updateData } from '../../store/applicantSlice'
+import { updateData, revertToOriginal } from '../../store/applicantSlice'
 import { useForm } from 'react-hook-form';
 import { yupResolver} from '@hookform/resolvers/yup'
+import axios from 'axios';
 import officeSchema from "../../schemas/officeValidationSchema";
 
 
@@ -26,7 +27,7 @@ const Office = () => {
     resolver: yupResolver(officeSchema)
   })
   const onValid = (data) =>{
-    navigate("/thanks")
+    console.log("valid")
   }
 
   return (
@@ -53,11 +54,11 @@ const Office = () => {
                 კვირაში ერთხელ
               </label>
               <label className="flex items-center h-10 text-xl">
-                <input {...register("non_formal_meetings")} type="radio"  onChange={handleApplicantChange} checked={applicant.non_formal_meetings=="bi_weekly"} className=" mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="bi_weekly" name="non_formal_meetings"/>
+                <input {...register("non_formal_meetings")} type="radio"  onChange={handleApplicantChange} checked={applicant.non_formal_meetings=="once_in_a_two_weeks"} className=" mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="once_in_a_two_weeks" name="non_formal_meetings"/>
                 ორ კვირაში ერთხელ
               </label>
               <label className="flex items-center h-10 text-xl">
-                <input {...register("non_formal_meetings")} type="radio"  onChange={handleApplicantChange} checked={applicant.non_formal_meetings=="once_a_month"} className=" mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="once_a_month" name="non_formal_meetings"/>
+                <input {...register("non_formal_meetings")} type="radio"  onChange={handleApplicantChange} checked={applicant.non_formal_meetings=="once_in_a_month "} className=" mr-5 appearance-none w-6 h-6 rounded-full border border-gray-900 checked:border-gray-900" value="once_in_a_month " name="non_formal_meetings"/>
                 თვეში ერთხელ
               </label>
               <p className={applicant.non_formal_meetings!=""?"hidden":"text-error"}>{errors.non_formal_meetings?.message}</p>
