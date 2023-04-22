@@ -1,5 +1,6 @@
 import FormHeader from "../../components/FormHeader";
-import { ArrowLeft , ArrowRight, OfficeImage } from "../../assets";
+import { useState, useEffect } from "react";
+import { ArrowLeft , OfficeImage } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { updateData } from '../../store/applicantSlice'
@@ -13,6 +14,11 @@ const Office = () => {
   const navigate = useNavigate();
   const dispach = useDispatch()
   const applicant = useSelector((store) => store.applicant) 
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    hasMounted? localStorage.setItem('localUser', JSON.stringify(applicant)) : setHasMounted(true);
+  }, [applicant, hasMounted]);
+  
   const handleApplicantChange = (e) => {
     e.target.name=="number_of_days_from_office"? dispach(updateData({property: e.target.name, value: +e.target.value})) : dispach(updateData({property: e.target.name, value: e.target.value}))
   }

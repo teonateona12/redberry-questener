@@ -6,14 +6,17 @@ import { ArrowLeft , ArrowRight, Doctor } from "../../assets";
 import { useForm } from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'
 import vaccineSchema from "../../schemas/vaccineValidationSchema";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 
 
 const Vaccine = () => {
-  const [canAdvance, setCanAdvance] = useState(false);
   const navigate = useNavigate();
   const dispach = useDispatch()
   const applicant = useSelector((store) => store.applicant) 
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    hasMounted? localStorage.setItem('localUser', JSON.stringify(applicant)) : setHasMounted(true);
+  }, [applicant, hasMounted]);
   const handleDosage = (e) => {
     setCanAdvance(true)
     dispach(updateData({property: "vaccination_stage", value: e.target.value}))
@@ -22,14 +25,13 @@ const Vaccine = () => {
     resolver: yupResolver(vaccineSchema)
   })
   const onValid = (data) =>{
-    canAdvance&&navigate("/office")
+    navigate("/office")
   }
   const handleCovidChange = (e) => {
     const value = e.target.value === 'true';
     dispach(updateData({property: "had_vaccine", value: value}))
     dispach(updateData({property: "vaccination_stage", value: null}))
     setValue("vaccination_stage", null)
-    canAdvance&&setCanAdvance(false)
   }
   return (
     <form onSubmit={handleSubmit(onValid)} className="px-[200px] w-full h-full bg-bgMain text-primaryText overflow-x-hidden">
@@ -110,7 +112,7 @@ const Vaccine = () => {
       </div>
       <div className="flex items-center justify-center">
         <button onClick={() => navigate("/covid")} className="mr-[117px]"><img src={ArrowLeft} alt=""/></button>
-        <button type="submit"><img src={ArrowRight} className={canAdvance? "filter brightness-0": ""} alt="" /></button>
+        <button type="submit"><img src={ArrowRight} className={applicant.had_vaccine!== null&& applicant.vaccination_stage!==null? "filter brightness-0": ""} alt="" /></button>
       </div>
     </form>
   );
