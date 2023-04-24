@@ -13,6 +13,7 @@ const applicant = {
     },
     had_vaccine: false,
     vaccination_stage: '',
+    i_am_waiting:'',
     non_formal_meetings: '',
     number_of_days_from_office: 0,
     what_about_meetings_in_live: '',
@@ -25,9 +26,16 @@ const applicantSlice = createSlice({
     reducers: {
         updateData: (state, action) => {
             state[action.payload.property] = action.payload.value;
-        }
+        },
+        updateLocal: (state, action) => {
+            return { ...state, ...action.payload };
+        },
+        revertToOriginal:(state, action) => {
+            //state = applicant
+            return { ...state, ...applicant };
+        },
     }
 })
 
-export const {updateData} = applicantSlice.actions
+export const {updateData, updateLocal, revertToOriginal} = applicantSlice.actions
 export default applicantSlice.reducer
