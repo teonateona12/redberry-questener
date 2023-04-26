@@ -26,7 +26,8 @@ const Office = () => {
   const {register, handleSubmit, formState: {errors}} = new useForm({
     resolver: yupResolver(officeSchema)
   })
-  const onValid = (data) =>{
+  const onValid = async(data) =>{
+    const response = await axios.post('https://covid19.devtest.ge/api/create', data);
     console.log("valid")
   }
 

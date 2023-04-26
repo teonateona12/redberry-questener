@@ -6,7 +6,7 @@ import { useForm  } from "react-hook-form";
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import { useEffect } from "react";
-
+import axios from "axios";
 
 
 const saveFormDataToLocalStorage = (formData) => {
@@ -29,10 +29,16 @@ const Personal = () => {
       
     });
   
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+      // const response = await axios.post('https://covid19.devtest.ge/api/create', data);
+      // console.log(response.data);
       saveFormDataToLocalStorage(data);
       navigate("/Covid");
     };
+    const saveFormDataToLocalStorage = (formData) => {
+      localStorage.setItem('formData', JSON.stringify(formData));
+    };
+    
     useEffect(() => {
       const formData = JSON.parse(localStorage.getItem('formData'));
     
