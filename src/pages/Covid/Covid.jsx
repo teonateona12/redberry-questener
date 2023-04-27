@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -14,6 +14,13 @@ const Covid = () => {
   const applicantForm = useSelector((store) => store.applicant);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    hasMounted
+      ? localStorage.setItem("localUser", JSON.stringify(applicantForm))
+      : setHasMounted(true);
+  }, [applicantForm, hasMounted]);
 
   const schema = yup.object().shape({
     covidStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
@@ -69,6 +76,7 @@ const Covid = () => {
                 type="radio"
                 id="covid-yes"
                 value="yes"
+                checked={applicantForm.had_covid === "yes"}
                 className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
               />
 
@@ -93,6 +101,7 @@ const Covid = () => {
                 })}
                 type="radio"
                 id="covid-no"
+                checked={applicantForm.had_covid === "no"}
                 value="no"
                 className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
               />
@@ -117,6 +126,7 @@ const Covid = () => {
                 })}
                 type="radio"
                 id="have_right_now"
+                checked={applicantForm.had_covid === "have_right_now"}
                 value="have_right_now"
                 className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
               />
@@ -158,6 +168,7 @@ const Covid = () => {
                     type="radio"
                     id="antibody-yes"
                     value="yes"
+                    checked={applicantForm.had_antibody_test === true}
                     className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
                   />
                   <label
@@ -182,6 +193,7 @@ const Covid = () => {
                     })}
                     type="radio"
                     id="antibody-no"
+                    checked={applicantForm.had_antibody_test === false}
                     value="no"
                     className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
                   />
@@ -263,6 +275,7 @@ const Covid = () => {
                     })}
                     className="w-[488px] h-12] ml-5 bg-transparent border border-[#232323] px-5 py-5 placeholder:text-base placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="რიცხვი"
+                    value={applicantForm.antibodies.test_date}
                   />
                   <input
                     {...register("antibodyCount", {
@@ -278,6 +291,7 @@ const Covid = () => {
                         ),
                     })}
                     type="number"
+                    value={applicantForm.antibodies.number}
                     className="w-[488px] h-12 ml-5 bg-transparent border border-[#232323] px-5 py-[5 placeholder:text-4 placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="ანტისხეულების რაოდენობა"
                   />
