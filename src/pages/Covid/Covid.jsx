@@ -45,17 +45,17 @@ const Covid = () => {
   });
 
   return (
-    <div className="w-full h-full flex flex-col px-[200px] bg-[#EAEAEA] ">
+    <div className="w-full h-full flex flex-col px-52 bg-[#EAEAEA] ">
       <FormHeader partition={2} />
 
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <form className="mt-[42px] flex flex-col gap-[18px]">
-            <label className="font-bold text-[22px] leading-6 text-[#232323]">
+          <form className="mt-10 flex flex-col gap-4">
+            <label className="font-bold text-xl leading-6 text-[#232323]">
               გაქვს გადატანილი Covid-19?*
             </label>
 
-            <div className="flex items-center ml-[19px]">
+            <div className="flex items-center ml-1">
               <input
                 {...register("covidStatus", {
                   onChange: (e) =>
@@ -69,18 +69,18 @@ const Covid = () => {
                 type="radio"
                 id="covid-yes"
                 value="yes"
-                className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
               />
 
               <label
                 htmlFor="covid-yes"
-                className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                className="ml-4 font-normal text-xl text-[#000000]"
               >
                 კი
               </label>
             </div>
 
-            <div className="flex items-center ml-[19px]">
+            <div className="flex items-center ml-1">
               <input
                 {...register("covidStatus", {
                   onChange: (e) =>
@@ -94,17 +94,17 @@ const Covid = () => {
                 type="radio"
                 id="covid-no"
                 value="no"
-                className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
                 htmlFor="covid-no"
-                className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                className="ml-4 font-normal text-xl text-[#000000]"
               >
                 არა
               </label>
             </div>
 
-            <div className="flex items-center ml-[19px]">
+            <div className="flex items-center ml-1">
               <input
                 {...register("covidStatus", {
                   onChange: (e) =>
@@ -118,11 +118,11 @@ const Covid = () => {
                 type="radio"
                 id="have_right_now"
                 value="have_right_now"
-                className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
                 htmlFor="have_right_now"
-                className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                className="ml-4 font-normal text-xl text-[#000000]"
               >
                 ახლა მაქვს
               </label>
@@ -131,7 +131,7 @@ const Covid = () => {
             {applicantForm.had_covid ? null : (
               <>
                 {errors.covidStatus && (
-                  <p className="font-[400] text-[16px] text-[#F15524]">
+                  <p className="font-normal text-base text-[#F15524]">
                     {errors.covidStatus.message}
                   </p>
                 )}
@@ -139,12 +139,12 @@ const Covid = () => {
             )}
 
             {applicantForm.had_covid === "yes" && (
-              <div className="mt-[42px] flex flex-col gap-[18px]">
-                <label className="font-bold text-[22px] leading-6 text-[#232323]">
+              <div className="mt-10 flex flex-col gap-4">
+                <label className="font-bold text-xl leading-6 text-[#232323]">
                   ანტისხეულების ტესტი გაქვს გაკეთებული?*
                 </label>
 
-                <div className="flex items-center ml-[19px]">
+                <div className="flex items-center ml-4">
                   <input
                     {...register("antibodyStatus", {
                       onChange: (e) =>
@@ -158,17 +158,17 @@ const Covid = () => {
                     type="radio"
                     id="antibody-yes"
                     value="yes"
-                    className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                    className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
                   />
                   <label
                     htmlFor="antibody-yes"
-                    className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                    className="ml-4 font-normla text-xl text-[#000000]"
                   >
                     კი
                   </label>
                 </div>
 
-                <div className="flex items-center ml-[19px]">
+                <div className="flex items-center ml-4">
                   <input
                     {...register("antibodyStatus", {
                       onChange: (e) => {
@@ -183,18 +183,18 @@ const Covid = () => {
                     type="radio"
                     id="antibody-no"
                     value="no"
-                    className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
+                    className="appearance-none w-5 h-5 rounded-full border border-[#232323]  checked:border-[#232323]"
                   />
                   <label
                     htmlFor="antibody-no"
-                    className="ml-[19px] font-[400] text-[20px] text-[#000000]"
+                    className="ml-4 font-normal text-xl text-[#000000]"
                   >
                     არა
                   </label>
                 </div>
 
                 {!applicantForm.had_antibody_test && errors.antibodyStatus && (
-                  <p className="font-[400] text-[16px] text-[#F15524]">
+                  <p className="font-normal text-xl text-[#F15524]">
                     {errors.antibodyStatus.message}
                   </p>
                 )}
@@ -203,8 +203,8 @@ const Covid = () => {
 
             {applicantForm.had_covid === "yes" &&
               applicantForm.had_antibody_test === false && (
-                <div className="mt-[42px] flex flex-col gap-[18px]">
-                  <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                <div className="mt-10 flex flex-col gap-4">
+                  <label className="font-bold text-xl leading-6 text-[#232323]">
                     მიუთითე მიახლოებითი პერიოდი (დღე/თვე/წელი) როდის გქონდა
                     Covid-19*
                   </label>
@@ -226,13 +226,13 @@ const Covid = () => {
                     }}
                     value={applicantForm.covid_sickness_date.substr(0, 10)}
                     placeholder="დდ/თთ/წწ"
-                    className="border-[0.8px] border-[#232323] w-[513px] h-[50px] ml-[19px] bg-transparent mt-[11px] placeholder:text-[18px] placeholder:text-[#232323 px-[20px] py-[10px]"
+                    className="border border-[#232323] w-[513px] h-12 ml-4 bg-transparent mt-3 placeholder:text-[18px] placeholder:text-[#232323 px-5 py-2"
                   />
 
                   {!applicantForm.covid_sickness_date || errors.date ? (
                     <>
                       {errors.date && (
-                        <p className="font-[400] text-[16px] text-[#F15524]">
+                        <p className="font-normal text-base text-[#F15524]">
                           {errors.date.message}
                         </p>
                       )}
@@ -243,8 +243,8 @@ const Covid = () => {
 
             {applicantForm.had_covid === "yes" &&
               applicantForm.had_antibody_test === true && (
-                <div className="mt-[42px] flex flex-col gap-[18px]">
-                  <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                <div className="mt-2 flex flex-col gap-4">
+                  <label className="font-bold text-xl leading-6 text-[#232323]">
                     თუ გახსოვს, გთხოვ მიუთითე ტესტის მიახლოებითი რიცხვი და
                     ანტისხეულების რაოდენობა*
                   </label>
@@ -261,7 +261,7 @@ const Covid = () => {
                           })
                         ),
                     })}
-                    className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-[488px] h-12] ml-5 bg-transparent border border-[#232323] px-5 py-5 placeholder:text-base placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="რიცხვი"
                   />
                   <input
@@ -278,12 +278,12 @@ const Covid = () => {
                         ),
                     })}
                     type="number"
-                    className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-[488px] h-12 ml-5 bg-transparent border border-[#232323] px-5 py-[5 placeholder:text-4 placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="ანტისხეულების რაოდენობა"
                   />
                   {errors.antibodyTestDate || errors.antibodyCount ? (
                     <>
-                      <p className="font-[400] text-[16px] text-[#F15524]">
+                      <p className="font-normal text-base text-[#F15524]">
                         გთხოვთ, სრულად შეავსოთ მოცემული ველი
                       </p>
                     </>
