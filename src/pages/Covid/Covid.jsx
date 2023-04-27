@@ -13,32 +13,7 @@ import arrowright from "../../assets/Vector 2.png";
 const Covid = () => {
   const applicantForm = useSelector((store) => store.applicant);
   const dispatch = useDispatch();
-  const [covidStatus, setCovidStatus] = useState("");
-  const [antibodyStatus, setAntibodyStatus] = useState("");
-  const [date, setDate] = useState("");
   const navigate = useNavigate();
-
-  const handleDateChange = (event) => {
-    const inputDate = event.target.value;
-    if (event.nativeEvent.inputType !== "deleteContentBackward") {
-      const formattedDate = formatInputDate(inputDate);
-      setDate(formattedDate);
-    } else {
-      setDate(inputDate);
-    }
-  };
-
-  const formatInputDate = (inputDate) => {
-    let formattedDate = inputDate
-      .replace(/[^\d\b]/g, "")
-      .slice(0, 8)
-      .replace(/^(\d{2})/, "$1/")
-      .replace(/^(\d{2}\/\d{2})/, "$1/")
-      .replace(/^(\d{2}\/\d{2}\/\d{4}).*/, "$1");
-    return formattedDate;
-  };
-
-  const antibodies = useSelector((state) => state.antibodies);
 
   const schema = yup.object().shape({
     covidStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
@@ -61,34 +36,9 @@ const Covid = () => {
     }),
   });
 
-  const onSubmit = (data) => {
-    dispatch(updateData({ property: "had_covid", value: covidStatus }));
-    dispatch(
-      updateData({
-        property: "had_antibody_test",
-        value: antibodyStatus === "yes" ? true : false,
-      })
-    );
-    dispatch(updateData({ property: "had_covid_date", value: date }));
-    dispatch(
-      updateData({
-        property: "antibody_test_date",
-        value: data.antibodyTestDate,
-      })
-    );
-    dispatch(
-      updateData({
-        property: "antibody_number",
-        value: data.antibodyCount,
-      })
-    );
-
-    navigate("/vaccine");
-  };
-
   const {
     register,
-    formState: { errors, isSubmitted },
+    formState: { errors },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(schema),
@@ -104,17 +54,24 @@ const Covid = () => {
             <label className="font-bold text-[22px] leading-6 text-[#232323]">
               გაქვს გადატანილი Covid-19?*
             </label>
+
             <div className="flex items-center ml-[19px]">
               <input
-                {...register("covidStatus")}
+                {...register("covidStatus", {
+                  onChange: (e) =>
+                    dispatch(
+                      updateData({
+                        property: "had_covid",
+                        value: e.target.value,
+                      })
+                    ),
+                })}
                 type="radio"
-                name="covidStatus"
                 id="covid-yes"
                 value="yes"
-                checked={covidStatus === "yes"}
-                onChange={(event) => setCovidStatus(event.target.value)}
                 className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
               />
+
               <label
                 htmlFor="covid-yes"
                 className="ml-[19px] font-[400] text-[20px] text-[#000000]"
@@ -122,15 +79,21 @@ const Covid = () => {
                 კი
               </label>
             </div>
+
             <div className="flex items-center ml-[19px]">
               <input
-                {...register("covidStatus")}
+                {...register("covidStatus", {
+                  onChange: (e) =>
+                    dispatch(
+                      updateData({
+                        property: "had_covid",
+                        value: e.target.value,
+                      })
+                    ),
+                })}
                 type="radio"
-                name="covidStatus"
                 id="covid-no"
                 value="no"
-                checked={covidStatus === "no"}
-                onChange={(event) => setCovidStatus(event.target.value)}
                 className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
@@ -140,26 +103,32 @@ const Covid = () => {
                 არა
               </label>
             </div>
+
             <div className="flex items-center ml-[19px]">
               <input
-                {...register("covidStatus")}
+                {...register("covidStatus", {
+                  onChange: (e) =>
+                    dispatch(
+                      updateData({
+                        property: "had_covid",
+                        value: e.target.value,
+                      })
+                    ),
+                })}
                 type="radio"
-                name="covidStatus"
-                id="covid-currently"
-                value="currently"
-                checked={covidStatus === "currently"}
-                onChange={(event) => setCovidStatus(event.target.value)}
+                id="have_right_now"
+                value="have_right_now"
                 className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
               />
               <label
-                htmlFor="covid-currently"
+                htmlFor="have_right_now"
                 className="ml-[19px] font-[400] text-[20px] text-[#000000]"
               >
                 ახლა მაქვს
               </label>
             </div>
 
-            {covidStatus ? null : (
+            {applicantForm.had_covid ? null : (
               <>
                 {errors.covidStatus && (
                   <p className="font-[400] text-[16px] text-[#F15524]">
@@ -169,7 +138,7 @@ const Covid = () => {
               </>
             )}
 
-            {covidStatus === "yes" && (
+            {applicantForm.had_covid === "yes" && (
               <div className="mt-[42px] flex flex-col gap-[18px]">
                 <label className="font-bold text-[22px] leading-6 text-[#232323]">
                   ანტისხეულების ტესტი გაქვს გაკეთებული?*
@@ -177,13 +146,18 @@ const Covid = () => {
 
                 <div className="flex items-center ml-[19px]">
                   <input
-                    {...register("antibodyStatus")}
+                    {...register("antibodyStatus", {
+                      onChange: (e) =>
+                        dispatch(
+                          updateData({
+                            property: "had_antibody_test",
+                            value: e.target.value === "yes" ? true : false,
+                          })
+                        ),
+                    })}
                     type="radio"
-                    name="antibodyStatus"
                     id="antibody-yes"
                     value="yes"
-                    checked={antibodyStatus === "yes"}
-                    onChange={(event) => setAntibodyStatus(event.target.value)}
                     className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
                   />
                   <label
@@ -196,13 +170,19 @@ const Covid = () => {
 
                 <div className="flex items-center ml-[19px]">
                   <input
-                    {...register("antibodyStatus")}
+                    {...register("antibodyStatus", {
+                      onChange: (e) => {
+                        dispatch(
+                          updateData({
+                            property: "had_antibody_test",
+                            value: e.target.value === "yes" ? true : false,
+                          })
+                        );
+                      },
+                    })}
                     type="radio"
-                    name="antibodyStatus"
                     id="antibody-no"
                     value="no"
-                    checked={antibodyStatus === "no"}
-                    onChange={(event) => setAntibodyStatus(event.target.value)}
                     className="appearance-none w-[23px] h-[23px] rounded-full border border-[#232323]  checked:border-[#232323]"
                   />
                   <label
@@ -213,7 +193,7 @@ const Covid = () => {
                   </label>
                 </div>
 
-                {isSubmitted && !antibodyStatus && errors.antibodyStatus && (
+                {!applicantForm.had_antibody_test && errors.antibodyStatus && (
                   <p className="font-[400] text-[16px] text-[#F15524]">
                     {errors.antibodyStatus.message}
                   </p>
@@ -221,58 +201,95 @@ const Covid = () => {
               </div>
             )}
 
-            {covidStatus === "yes" && antibodyStatus === "no" && (
-              <div className="mt-[42px] flex flex-col gap-[18px]">
-                <label className="font-bold text-[22px] leading-6 text-[#232323]">
-                  მიუთითე მიახლოებითი პერიოდი (დღე/თვე/წელი) როდის გქონდა
-                  Covid-19*
-                </label>
-                <input
-                  {...register("date")}
-                  type="text"
-                  value={date}
-                  onChange={handleDateChange}
-                  placeholder="დდ/თთ/წწ"
-                  className="border-[0.8px] border-[#232323] w-[513px] h-[50px] ml-[19px] bg-transparent mt-[11px] placeholder:text-[18px] placeholder:text-[#232323 px-[20px] py-[10px]"
-                />
-                {!date || errors.date ? (
-                  <>
-                    {errors.date && (
-                      <p className="font-[400] text-[16px] text-[#F15524]">
-                        {errors.date.message}
-                      </p>
-                    )}
-                  </>
-                ) : null}
-              </div>
-            )}
+            {applicantForm.had_covid === "yes" &&
+              applicantForm.had_antibody_test === false && (
+                <div className="mt-[42px] flex flex-col gap-[18px]">
+                  <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                    მიუთითე მიახლოებითი პერიოდი (დღე/თვე/წელი) როდის გქონდა
+                    Covid-19*
+                  </label>
+                  <input
+                    {...register("date", {
+                      onChange: (e) => {
+                        let date = new Date(e.target.value);
+                        dispatch(
+                          updateData({
+                            property: "covid_sickness_date",
+                            value: date.toISOString(),
+                          })
+                        );
+                      },
+                    })}
+                    type="string"
+                    onFocus={(e) => {
+                      e.target.type = "date";
+                    }}
+                    value={applicantForm.covid_sickness_date.substr(0, 10)}
+                    placeholder="დდ/თთ/წწ"
+                    className="border-[0.8px] border-[#232323] w-[513px] h-[50px] ml-[19px] bg-transparent mt-[11px] placeholder:text-[18px] placeholder:text-[#232323 px-[20px] py-[10px]"
+                  />
 
-            {covidStatus === "yes" && antibodyStatus === "yes" && (
-              <div className="mt-[42px] flex flex-col gap-[18px]">
-                <label className="font-bold text-[22px] leading-6 text-[#232323]">
-                  თუ გახსოვს, გთხოვ მიუთითე ტესტის მიახლოებითი რიცხვი და
-                  ანტისხეულების რაოდენობა*
-                </label>
-                <input
-                  {...register("antibodyTestDate")}
-                  className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  placeholder="რიცხვი"
-                />
-                <input
-                  {...register("antibodyCount")}
-                  type="number"
-                  className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  placeholder="ანტისხეულების რაოდენობა"
-                />
-                {errors.antibodyTestDate || errors.antibodyCount ? (
-                  <>
-                    <p className="font-[400] text-[16px] text-[#F15524]">
-                      გთხოვთ, სრულად შეავსოთ მოცემული ველი
-                    </p>
-                  </>
-                ) : null}
-              </div>
-            )}
+                  {!applicantForm.covid_sickness_date || errors.date ? (
+                    <>
+                      {errors.date && (
+                        <p className="font-[400] text-[16px] text-[#F15524]">
+                          {errors.date.message}
+                        </p>
+                      )}
+                    </>
+                  ) : null}
+                </div>
+              )}
+
+            {applicantForm.had_covid === "yes" &&
+              applicantForm.had_antibody_test === true && (
+                <div className="mt-[42px] flex flex-col gap-[18px]">
+                  <label className="font-bold text-[22px] leading-6 text-[#232323]">
+                    თუ გახსოვს, გთხოვ მიუთითე ტესტის მიახლოებითი რიცხვი და
+                    ანტისხეულების რაოდენობა*
+                  </label>
+                  <input
+                    {...register("antibodyTestDate", {
+                      onChange: (e) =>
+                        dispatch(
+                          updateData({
+                            property: "antibodies",
+                            value: {
+                              ...applicantForm.antibodies,
+                              test_date: e.target.value,
+                            },
+                          })
+                        ),
+                    })}
+                    className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    placeholder="რიცხვი"
+                  />
+                  <input
+                    {...register("antibodyCount", {
+                      onChange: (e) =>
+                        dispatch(
+                          updateData({
+                            property: "antibodies",
+                            value: {
+                              ...applicantForm.antibodies,
+                              number: e.target.value,
+                            },
+                          })
+                        ),
+                    })}
+                    type="number"
+                    className="w-[488px] h-[50px] ml-[20px] bg-transparent border-[0.8px] border-[#232323] px-[20px] py-[10px] placeholder:text-[18px] placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    placeholder="ანტისხეულების რაოდენობა"
+                  />
+                  {errors.antibodyTestDate || errors.antibodyCount ? (
+                    <>
+                      <p className="font-[400] text-[16px] text-[#F15524]">
+                        გთხოვთ, სრულად შეავსოთ მოცემული ველი
+                      </p>
+                    </>
+                  ) : null}
+                </div>
+              )}
           </form>
         </div>
 
@@ -289,7 +306,7 @@ const Covid = () => {
         <img
           src={arrowright}
           className="cursor-pointer"
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(() => navigate("/vaccine"))}
         />
       </div>
     </div>
