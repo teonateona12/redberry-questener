@@ -190,17 +190,13 @@ const Vaccine = () => {
             </div>
           )}
           <p
-            className={
-              applicant.had_vaccine === null ||
-              applicant.vaccination_stage !== null
-                ? "hidden"
-                : "text-error ml-6"
-            }
+            className={applicant.vaccination_stage !== null || applicant.i_am_waiting !== null? "hidden" : "text-error"}
           >
             {errors.vaccination_stage?.message}
+            {errors.i_am_waiting?.message}
           </p>
           {applicant.vaccination_stage ==
-          "first_dosage_and_not_registered_on_the_second" ? (
+          "first_dosage_and_not_registered_yet" ? (
             <p className="w-96 pl-16 text-xl mt-10">
               რომ არ გადადო, <br />
               ბარემ ახლავე დარეგისტრირდი
@@ -211,7 +207,8 @@ const Vaccine = () => {
           ) : (
             ""
           )}
-          {applicant.vaccination_stage == "already_had_it_and_not_planning" ? (
+          {applicant.i_am_waiting ==
+          "had_covid_and_planning_to_be_vaccinated" ? (
             <div className="w-112 pl-16 text-xl mt-10">
               <p>
                 ახალი პროტოკოლით კოვიდის გადატანიდან 1 თვის შემდეგ შეგიძლიათ
@@ -225,7 +222,7 @@ const Vaccine = () => {
           ) : (
             ""
           )}
-          {applicant.vaccination_stage == "not_planning" ? (
+          {applicant.i_am_waiting == "not_planning" ? (
             <a
               className="block text-link pl-16 text-xl mt-10"
               href="https://booking.moh.gov.ge/"
@@ -246,8 +243,10 @@ const Vaccine = () => {
           <img
             src={ArrowRight}
             className={
-              applicant.had_vaccine !== null &&
-              applicant.vaccination_stage !== null
+              (applicant.had_vaccine !== null &&
+                applicant.vaccination_stage !== null) ||
+              (applicant.had_vaccine !== null &&
+                applicant.i_am_waiting !== null)
                 ? "filter brightness-0"
                 : ""
             }
