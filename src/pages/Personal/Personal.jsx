@@ -66,10 +66,10 @@ const Personal = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex  items-start ">
           <div className="">
-            <div className="mt-[42px]">
+            <div className="mt-10">
               <h1>სახელი</h1>
               <input
-                className="mt-[1px] border-2 border-[#232323]   "
+                className="mt-px border-2 border-[#232323]   "
                 type="text"
                 {...register("name")}
                 onChange={(e) =>
@@ -77,10 +77,10 @@ const Personal = () => {
               />
               <p className="text-red-500">{errors.name?.message}</p>
             </div>
-            <div className="mt-[47px]">
+            <div className="mt-12">
               <h2>გვარი*</h2>
               <input
-                className="mt-[1px] border-2 border-[#232323]"
+                className="mt-px border-2 border-[#232323]"
                 type="text"
                 {...register("surname")}
                 onChange={(e) =>
@@ -89,10 +89,10 @@ const Personal = () => {
               />
               <p className="text-red-500">{errors.surname?.message}</p>
             </div>
-            <div className="mt-[47px]">
+            <div className="mt-12">
               <h3>მეილი*</h3>
               <input
-                className="mt-[1px] border-2 border-[#232323]"
+                className="mt-px border-2 border-[#232323]"
                 type="email"
                 {...register("email")}
                 onChange={(e) =>
@@ -100,7 +100,7 @@ const Personal = () => {
               />
               <p className="text-red-500">{errors.email?.message}</p>
             </div>
-            <hr className=" mt-[111px]" />
+            <hr className=" mt-28" />
             <div className="">
               <h4>*_ით მონიშნული ველების შევსება სავალდებულოა</h4>
             </div>
