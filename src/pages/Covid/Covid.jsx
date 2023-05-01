@@ -25,22 +25,22 @@ const Covid = () => {
   const schema = yup.object().shape({
     covidStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
     antibodyStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
-    date: yup.string().when("antibodyStatus", {
-      is: "no",
-      then: (schema) =>
-        schema
-          .min(10, "გთხოვთ, სრულად შეავსოთ თარი")
-          .required("Please enter a date"),
-      otherwise: (schema) => schema.notRequired(),
-    }),
-    antibodyTestDate: yup.string().when("antibodyStatus", {
-      is: "yes",
-      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რიცხვი"),
-    }),
-    antibodyCount: yup.string().when("antibodyStatus", {
-      is: "yes",
-      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რაოდენობა"),
-    }),
+    // date: yup.string().when("antibodyStatus", {
+    //   is: "no",
+    //   then: (schema) =>
+    //     schema
+    //       .min(10, "გთხოვთ, სრულად შეავსოთ თარი")
+    //       .required("Please enter a date"),
+    //   otherwise: (schema) => schema.notRequired(),
+    // }),
+    // antibodyTestDate: yup.string().when("antibodyStatus", {
+    //   is: "yes",
+    //   then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რიცხვი"),
+    // }),
+    // antibodyCount: yup.string().when("antibodyStatus", {
+    //   is: "yes",
+    //   then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რაოდენობა"),
+    // }),
   });
 
   const {
@@ -320,7 +320,10 @@ const Covid = () => {
         <img
           src={arrowright}
           className="cursor-pointer"
-          onClick={handleSubmit(() => navigate("/vaccine"))}
+          onClick={() => {
+            handleSubmit();
+            navigate("/vaccine");
+          }}
         />
       </div>
     </div>
