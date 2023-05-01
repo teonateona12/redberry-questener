@@ -46,11 +46,11 @@ const Personal = () => {
     navigate("/Covid");
   };
   const saveFormDataToLocalStorage = (formData) => {
-    localStorage.setItem("formData", JSON.stringify(formData));
+    localStorage.setItem("localUser", JSON.stringify(formData));
   };
 
   useEffect(() => {
-    const formData = JSON.parse(localStorage.getItem("formData"));
+    const formData = JSON.parse(localStorage.getItem("localUser"));
 
     if (formData) {
       Object.keys(formData).forEach((key) => {
@@ -67,13 +67,17 @@ const Personal = () => {
         <div className="flex  items-start ">
           <div className="">
             <div className="mt-10">
-              <h1>სახელი</h1>
+              <h1>სახელი*</h1>
               <input
                 className="mt-px border-2 border-[#232323]   "
                 type="text"
-                {...register("name")}
-                onChange={(e) =>
-                  saveFormDataToLocalStorage({ ...getValues(), name: e.target.value })}
+                {...register("name", {
+                  onChange: (e) =>
+                    saveFormDataToLocalStorage({
+                      ...getValues(),
+                      name: e.target.value,
+                    }),
+                })}
               />
               <p className="text-red-500">{errors.name?.message}</p>
             </div>
@@ -82,10 +86,14 @@ const Personal = () => {
               <input
                 className="mt-px border-2 border-[#232323]"
                 type="text"
-                {...register("surname")}
-                onChange={(e) =>
-                  saveFormDataToLocalStorage({ ...getValues(), surname: e.target.value })}
-                  
+                
+                {...register("surname", {
+                  onChange: (e) =>
+                    saveFormDataToLocalStorage({
+                      ...getValues(),
+                      surname: e.target.value,
+                    }),
+                })}
               />
               <p className="text-red-500">{errors.surname?.message}</p>
             </div>
@@ -94,9 +102,13 @@ const Personal = () => {
               <input
                 className="mt-px border-2 border-[#232323]"
                 type="email"
-                {...register("email")}
-                onChange={(e) =>
-                  saveFormDataToLocalStorage({ ...getValues(), email: e.target.value })}
+                {...register("email", {
+                  onChange: (e) =>
+                    saveFormDataToLocalStorage({
+                      ...getValues(),
+                      email: e.target.value,
+                    }),
+                })}
               />
               <p className="text-red-500">{errors.email?.message}</p>
             </div>
@@ -112,10 +124,9 @@ const Personal = () => {
         </div>
         <div className="flex justify-center items-center">
           <button type="submit" className=" m-auto">
-          <img src={ArrowRight} alt="" />
-        </button>
+            <img src={ArrowRight} alt="" />
+          </button>
         </div>
-        
       </form>
     </div>
   );
