@@ -7,12 +7,27 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import axios from "axios";
+import { Provider } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { updateData } from "../../store/applicantSlice";
+import { useState } from "react";
+
+
 
 const Personal = () => {
+
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state.applicant);
+  console.log(formData);
+
+
+
+
   const navigate = useNavigate();
 
   const PersonalSchema = yup.object().shape({
-    name: yup
+    first_name: yup
       .string()
       .required("სახელის ველის შევსება სავალდებულოა")
       .min(2, "სახელის ველი უნდა შედგებოდეს მინიმუმ 3 სიმბოლოსგან")
@@ -25,7 +40,7 @@ const Personal = () => {
         /@redberry\.ge$/,
         "გთხოვთ დარეგისტრირდეთ Redberry-ს მეილით (youremail@redberry.ge)"
       ),
-    surname: yup
+    last_name: yup
       .string()
       .required("გვარის ველის შევსება სავალდებულოა")
       .min(2, "გვარის ველი უნდა შედგებოდეს მინიმუმ 3 სიმბოლოსგან")
@@ -45,19 +60,15 @@ const Personal = () => {
   const onSubmit = async (data) => {
     navigate("/Covid");
   };
-  const saveFormDataToLocalStorage = (formData) => {
-    localStorage.setItem("localUser", JSON.stringify(formData));
-  };
+ 
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    const formData = JSON.parse(localStorage.getItem("localUser"));
-
-    if (formData) {
-      Object.keys(formData).forEach((key) => {
-        setValue(key, formData[key]);
-      });
-    }
-  }, []);
+    hasMounted
+      ? localStorage.setItem("localUser", JSON.stringify(formData))
+      : setHasMounted(true);
+  }, [formData, hasMounted]);
+  
 
   return (
     <div className="pl-[200px] pr-[165px] w-full h-full ">
@@ -69,14 +80,18 @@ const Personal = () => {
             <div className="mt-10">
               <h1>სახელი*</h1>
               <input
-                className="mt-px border-2 border-[#232323]   "
+                className="mt-px border border-[#232323]   "
                 type="text"
-                {...register("name", {
-                  onChange: (e) =>
-                    saveFormDataToLocalStorage({
-                      ...getValues(),
-                      name: e.target.value,
-                    }),
+                {...register("first_name", {
+                  onChange: (e) => {
+                    dispatch(updateData({property:"first_name" , value:e.target.value}))
+                    // saveFormDataToLocalStorage({
+                    //   ...getValues(),
+                    //   name: e.target.value,
+                    // }),
+                  }
+                    
+                    
                 })}
               />
               <p className="text-red-500">{errors.name?.message}</p>
@@ -84,15 +99,13 @@ const Personal = () => {
             <div className="mt-12">
               <h2>გვარი*</h2>
               <input
-                className="mt-px border-2 border-[#232323]"
+                className="mt-px border border-[#232323]"
                 type="text"
                 
-                {...register("surname", {
+                {...register("last_name", {
                   onChange: (e) =>
-                    saveFormDataToLocalStorage({
-                      ...getValues(),
-                      surname: e.target.value,
-                    }),
+                   
+                  dispatch(updateData({property:"last_name" , value:e.target.value}))
                 })}
               />
               <p className="text-red-500">{errors.surname?.message}</p>
@@ -100,14 +113,11 @@ const Personal = () => {
             <div className="mt-12">
               <h3>მეილი*</h3>
               <input
-                className="mt-px border-2 border-[#232323]"
+                className="mt-px border border-[#232323]"
                 type="email"
                 {...register("email", {
                   onChange: (e) =>
-                    saveFormDataToLocalStorage({
-                      ...getValues(),
-                      email: e.target.value,
-                    }),
+                  dispatch(updateData({property:"email" , value:e.target.value}))
                 })}
               />
               <p className="text-red-500">{errors.email?.message}</p>
