@@ -29,7 +29,6 @@ const Office = () => {
   const onValid = (data) =>{
     console.log("valid")
   }
-
   return (
     <form onSubmit={handleSubmit(onValid)} className="px-40 bg-bgMain text-primaryText overflow-x-hidden">
       <FormHeader partition={4}/> 

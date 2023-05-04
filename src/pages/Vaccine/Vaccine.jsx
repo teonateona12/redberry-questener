@@ -13,7 +13,6 @@ const Vaccine = () => {
   const dispach = useDispatch();
   const applicant = useSelector((store) => store.applicant);
   const [hasMounted, setHasMounted] = useState(false);
-
   useEffect(() => {
     hasMounted
       ? localStorage.setItem("localUser", JSON.stringify(applicant))
