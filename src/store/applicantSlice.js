@@ -11,11 +11,11 @@ const applicant = {
         test_date: "",
         number: 0,
     },
-    had_vaccine: false,
+    had_vaccine: null,
     vaccination_stage: '',
     i_am_waiting:'',
     non_formal_meetings: '',
-    number_of_days_from_office: 0,
+    number_of_days_from_office: null,
     what_about_meetings_in_live: '',
     tell_us_your_opinion_about_us: '',
 };

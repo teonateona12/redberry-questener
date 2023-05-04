@@ -30,7 +30,6 @@ const Office = () => {
     const response = await axios.post('https://covid19.devtest.ge/api/create', data);
     console.log("valid")
   }
-
   return (
     <form onSubmit={handleSubmit(onValid)} className="px-40 bg-bgMain text-primaryText overflow-x-hidden">
       <FormHeader partition={4}/> 
