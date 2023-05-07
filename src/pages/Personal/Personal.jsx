@@ -51,6 +51,7 @@ const Personal = () => {
   const onSubmit = async (data) => {
     navigate("/Covid");
   };
+ 
 
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -84,7 +85,8 @@ const Personal = () => {
                   },
                 })}
               />
-              <p className="text-red-500">{errors.name?.message}</p>
+              <p className="text-red-500">{errors.first_name?.message} </p>
+              
             </div>
             <div className="mt-12">
               <h2>გვარი*</h2>
@@ -102,7 +104,7 @@ const Personal = () => {
                     ),
                 })}
               />
-              <p className="text-red-500">{errors.surname?.message}</p>
+              <p className="text-red-500">{errors.last_name?.message}</p>
             </div>
             <div className="mt-12">
               <h3>მეილი*</h3>
