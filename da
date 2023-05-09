@@ -1,0 +1,245 @@
+[33mcommit 4e874d7d0f9bfed2f244161b852fc992ea34d88b[m[33m ([m[1;36mHEAD -> [m[1;32mfix/covidBug-fix[m[33m, [m[1;31morigin/fix/covidBug-fix[m[33m)[m
+Author: WhereIsPumpkin <sgogr2021@agruni.edu.ge>
+Date:   Thu May 4 00:24:05 2023 +0400
+
+    fix/antibodyBug fix
+
+[33mcommit b98e4ba10e7da9771c12ef6eab6852c8b4001534[m
+Author: WhereIsPumpkin <sgogr2021@agruni.edu.ge>
+Date:   Wed May 3 11:25:02 2023 +0400
+
+    fix required fileds
+
+[33mcommit 15d23dd0ed4da362707e40822d2168e6a7cf938a[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32m0b[m[33m)[m
+Merge: 64e6986 a456bf1
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Tue May 2 16:35:16 2023 +0400
+
+    Merge pull request #23 from teonateona12/feat/Personal
+    
+    Feat/personal
+
+[33mcommit a456bf1052736ba7f0e688948e19f4846e8eeeae[m[33m ([m[1;31morigin/feat/Personal[m[33m)[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Tue May 2 16:28:34 2023 +0400
+
+    fix: localstorage and redux configuration
+
+[33mcommit 57efeb0986a1467f59442e998eaee16793dec4a5[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Tue May 2 15:56:49 2023 +0400
+
+    feat: localstorage config
+
+[33mcommit 450289ca1a26305c7f32b3c203c2cc51a075ce69[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Mon May 1 15:52:48 2023 +0400
+
+    fix: fixedvalidation errors and design
+
+[33mcommit 64e698654f01fd3862ff1eff822fb420eebaf438[m
+Merge: 2aef170 f4410d5
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Sat Apr 29 13:45:43 2023 +0400
+
+    Merge pull request #21 from teonateona12/fix/cleanup-vaccine
+    
+    fix error and suggestion messages according to the new applicant obj
+
+[33mcommit 6a1d1b306f906969de449f100e22f9dba5422665[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Sat Apr 29 13:45:13 2023 +0400
+
+    fix: fixed tailwind
+
+[33mcommit 2aef1703a56fe0dc1c991ba88069ab30b0de842c[m
+Merge: 4336145 13d1afe
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Sat Apr 29 13:44:21 2023 +0400
+
+    Merge pull request #19 from teonateona12/feat/Personal
+    
+    Feat/personal
+
+[33mcommit 13d1afe92fb9d0c264f1fa0b8be743139f86765c[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Sat Apr 29 13:37:07 2023 +0400
+
+    fix: fixed localstorage
+
+[33mcommit f4410d54a85deca615ecbc5d0f90d6943783eda3[m[33m ([m[1;31morigin/fix/cleanup-vaccine[m[33m)[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Fri Apr 28 16:14:19 2023 +0400
+
+    fix error and suggestion messages according to the new applicant obj
+
+[33mcommit 4336145de7278d0ee9a20085a965b96c91914f12[m
+Merge: a82b511 ced60cc
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Thu Apr 27 19:00:01 2023 +0400
+
+    Merge pull request #20 from teonateona12/covid-checkup-localStorage
+    
+    Covid checkup local storage
+
+[33mcommit ced60cc9800eb3c18a9d3db3d733923dd620977f[m[33m ([m[1;31morigin/covid-checkup-localStorage[m[33m, [m[1;32mcovid-checkup-localStorage[m[33m)[m
+Author: WhereIsPumpkin <sgogr2021@agruni.edu.ge>
+Date:   Thu Apr 27 14:14:27 2023 +0400
+
+    feat: Add local storage
+
+[33mcommit 804f829ff8ce6fcc819ba6852a08ca720c08da93[m
+Author: WhereIsPumpkin <sgogr2021@agruni.edu.ge>
+Date:   Thu Apr 27 12:26:02 2023 +0400
+
+    fix tailwind
+
+[33mcommit a82b51150f160a76daac1b9ec2d8b7986ede3692[m
+Merge: 3bea101 e96c4e5
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Thu Apr 27 12:18:50 2023 +0400
+
+    Merge pull request #16 from teonateona12/feat/covid-checkup-fix
+    
+    bug fix
+
+[33mcommit 36620ebe411f8c8aebc46889de549ff7ed9f5d2a[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Wed Apr 26 18:45:14 2023 +0400
+
+    added axios
+
+[33mcommit db2b89abb26c1a7541bbc35d7089084ea0db8921[m
+Merge: 2aee12e 3bea101
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Wed Apr 26 16:44:07 2023 +0400
+
+    fixed conflict errors
+
+[33mcommit 2aee12e998a303ae08b18a0a6777119f4d125e17[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Wed Apr 26 16:42:05 2023 +0400
+
+    fix: added localstorage and added validation
+
+[33mcommit e96c4e51b901c3d01c2adf6b1ca9df5d53cc6910[m[33m ([m[1;31morigin/feat/covid-checkup-fix[m[33m)[m
+Merge: 79116de 3bea101
+Author: Saba <101209436+WhereIsPumpkin@users.noreply.github.com>
+Date:   Mon Apr 24 23:31:41 2023 +0400
+
+    Merge branch 'main' into feat/covid-checkup-fix
+
+[33mcommit 3bea101239d4de44a3037e477fceacfbfbec24ea[m
+Merge: 99468c2 1aa25a4
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Sat Apr 22 11:15:08 2023 +0400
+
+    Merge pull request #18 from teonateona12/feat/tailwindRewrite
+    
+    Feat/tailwind rewrite
+
+[33mcommit 99468c24625b3d99cdfd92a9a0118a9469ec2057[m
+Merge: 7125bda 2e74f5f
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Sat Apr 22 11:14:56 2023 +0400
+
+    Merge pull request #17 from teonateona12/feat/localStorage
+    
+    Feat/local storage
+
+[33mcommit 1aa25a4b72320860f2349131c4229470ee4dfdb1[m[33m ([m[1;31morigin/feat/tailwindRewrite[m[33m)[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Fri Apr 21 16:56:45 2023 +0400
+
+    fix: change spelling and structure errors in applicant object
+
+[33mcommit 2df18d33dce088d7f51dbe9f32f506dd4c9315f1[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Fri Apr 21 12:50:36 2023 +0400
+
+    fix: tailwind styles rewrite
+
+[33mcommit 35d0961934c13eac42dfb873bc002e1aa918c9f0[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Fri Apr 21 12:12:18 2023 +0400
+
+    fix: tailwind styles rewrite
+
+[33mcommit d9bcf94744b29a6e5b2cf41dde8f07934087c7f8[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Fri Apr 21 11:48:33 2023 +0400
+
+    fix: tailwind styles rewrite
+
+[33mcommit 2e74f5fda86d26d96bd53d4f29e4b90adee51b5a[m[33m ([m[1;31morigin/feat/localStorage[m[33m)[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Thu Apr 20 23:37:49 2023 +0400
+
+    fix: bug on vaccination page, remove unused state that hinders navigate()
+
+[33mcommit 504522cc0a1eed9857f54d5e4b94ef3bd99e1297[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Thu Apr 20 23:31:35 2023 +0400
+
+    add get storage update to pages + cleanup
+
+[33mcommit 8c25d4a1fc7bea5ba61439ed9d4d6f8e6fa3dece[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Thu Apr 20 22:56:58 2023 +0400
+
+    add get applicant object from localStorage
+
+[33mcommit 8a915c4b62fc1eb1989a008e399d34d76c2d8e58[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Thu Apr 20 14:26:55 2023 +0400
+
+    YUP requirements
+
+[33mcommit 79116dead0ccf41bb385394c204aee8ebba69028[m
+Author: WhereIsPumpkin <sgogr2021@agruni.edu.ge>
+Date:   Thu Apr 20 14:18:21 2023 +0400
+
+    bug fix
+
+[33mcommit 93f3e033767850db7a59e59ed7c99ce2faa7e666[m
+Author: khantadzeeren <miusern1@gmail.com>
+Date:   Thu Apr 20 13:42:21 2023 +0400
+
+    personal page navigation and react hook form
+
+[33mcommit 7125bda8936686c1ffce019b594ebabed8391740[m
+Merge: e694f26 3b10807
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Wed Apr 19 22:29:20 2023 +0400
+
+    Merge pull request #15 from teonateona12/feat/office
+    
+    add validation
+
+[33mcommit 3b108072c488f4d2f054c10c7331c54cb39254ce[m[33m ([m[1;31morigin/feat/office[m[33m)[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Wed Apr 19 14:26:49 2023 +0400
+
+    add validation
+
+[33mcommit e694f26d2015bbd978fc9a8a224d5d8b4dbb0816[m
+Merge: d75a0e5 fb1dee9
+Author: teonapiranishvili <100440747+teonateona12@users.noreply.github.com>
+Date:   Wed Apr 19 13:25:42 2023 +0400
+
+    Merge pull request #13 from teonateona12/feat/office
+    
+    Feat/office
+
+[33mcommit fb1dee976ac1ad059d59708d22b7affe272553be[m
+Author: Vato Loladze <a.loladze16@gmail.com>
+Date:   Wed Apr 19 13:23:29 2023 +0400
+
+    fix: clear comments
+
+[33mcommit d75a0e50ca373f125cb5c96376ed6be5d6323271[m
+Merge: 505dcff 44b7acf
+Author: Saba <101209436+WhereIsPumpkin@users.noreply.github.com>
+Date:   Tue Apr 18 18:40:04 2023 +0400
+
+    Merge pull request #14 from teonateona12/feat/covi
