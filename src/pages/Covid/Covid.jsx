@@ -24,22 +24,10 @@ const Covid = () => {
 
   const schema = yup.object().shape({
     covidStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
-    antibodyStatus: yup.string().required("გთხოვთ,აირჩიოთ პასუხი"),
-    date: yup.string().when("antibodyStatus", {
-      is: "no",
-      then: (schema) =>
-        schema
-          .min(10, "გთხოვთ, სრულად შეავსოთ თარი")
-          .required("Please enter a date"),
+    antibodyStatus: yup.string().when("covidStatus", {
+      is: "yes",
+      then: (schema) => schema.required("გთხოვთ, აირჩიოთ პასუხი"),
       otherwise: (schema) => schema.notRequired(),
-    }),
-    antibodyTestDate: yup.string().when("antibodyStatus", {
-      is: "yes",
-      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რიცხვი"),
-    }),
-    antibodyCount: yup.string().when("antibodyStatus", {
-      is: "yes",
-      then: (schema) => schema.required("გთხოვთ, შეიყვანოთ რაოდენობა"),
     }),
   });
 
