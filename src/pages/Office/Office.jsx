@@ -14,6 +14,7 @@ const Office = () => {
   const dispach = useDispatch();
   const applicant = useSelector((store) => store.applicant);
   const [hasMounted, setHasMounted] = useState(false);
+  // console.log(applicant);
   useEffect(() => {
     hasMounted
       ? localStorage.setItem("localUser", JSON.stringify(applicant))
@@ -33,7 +34,15 @@ const Office = () => {
     resolver: yupResolver(officeSchema),
   });
   const onValid = async (data) => {
-    console.log("valid");
+    try {
+      const response = await axios.post(
+        "https://covid19.devtest.ge/api/create",
+        applicant
+      );
+      console.log("succesfully sent");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <form
