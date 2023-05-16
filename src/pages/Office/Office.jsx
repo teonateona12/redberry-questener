@@ -14,7 +14,7 @@ const Office = () => {
   const dispach = useDispatch();
   const applicant = useSelector((store) => store.applicant);
   const [hasMounted, setHasMounted] = useState(false);
-  // console.log(applicant);
+  console.log(applicant);
   useEffect(() => {
     hasMounted
       ? localStorage.setItem("localUser", JSON.stringify(applicant))
