@@ -29,6 +29,11 @@ const Covid = () => {
       then: (schema) => schema.required("გთხოვთ, აირჩიოთ პასუხი"),
       otherwise: (schema) => schema.notRequired(),
     }),
+    date: yup.string().when("antibodyStatus", {
+      is: "no",
+      then: (schema) => schema.required("გთხოვთ, აირჩიოთ პასუხი"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   });
 
   const {

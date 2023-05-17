@@ -14,7 +14,6 @@ const Office = () => {
   const dispach = useDispatch();
   const applicant = useSelector((store) => store.applicant);
   const [hasMounted, setHasMounted] = useState(false);
-  console.log(applicant);
   useEffect(() => {
     hasMounted
       ? localStorage.setItem("localUser", JSON.stringify(applicant))
@@ -33,17 +32,39 @@ const Office = () => {
   } = new useForm({
     resolver: yupResolver(officeSchema),
   });
+
+  let postApplicant = {};
+
+  function copyNonEmpty(obj1, obj2) {
+    for (let key in obj1) {
+      let value = obj1[key];
+
+      if (value !== "" && value !== null) {
+        if (typeof value === "object") {
+          obj2[key] = {};
+
+          copyNonEmpty(value, obj2[key]);
+        } else {
+          obj2[key] = value;
+        }
+      }
+    }
+  }
+
+  copyNonEmpty(applicant, postApplicant);
+
   const onValid = async (data) => {
     try {
       const response = await axios.post(
         "https://covid19.devtest.ge/api/create",
-        applicant
+        postApplicant
       );
       console.log("succesfully sent");
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(onValid)}
