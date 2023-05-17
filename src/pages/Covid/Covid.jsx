@@ -29,6 +29,11 @@ const Covid = () => {
       then: (schema) => schema.required("გთხოვთ, აირჩიოთ პასუხი"),
       otherwise: (schema) => schema.notRequired(),
     }),
+    date: yup.string().when("antibodyStatus", {
+      is: "no",
+      then: (schema) => schema.required("გთხოვთ, აირჩიოთ პასუხი"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   });
 
   const {
@@ -250,20 +255,26 @@ const Covid = () => {
                   </label>
                   <input
                     {...register("antibodyTestDate", {
-                      onChange: (e) =>
+                      onChange: (e) => {
+                        let date = new Date(e.target.value);
                         dispatch(
                           updateData({
                             property: "antibodies",
                             value: {
                               ...applicantForm.antibodies,
-                              test_date: e.target.value,
+                              test_date: date.toISOString(),
                             },
                           })
-                        ),
+                        );
+                      },
                     })}
-                    className="w-[488px] h-12] ml-5 bg-transparent border border-[#232323] px-5 py-5 placeholder:text-base placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    placeholder="რიცხვი"
-                    value={applicantForm.antibodies.test_date}
+                    type="string"
+                    onFocus={(e) => {
+                      e.target.type = "date";
+                    }}
+                    value={applicantForm.antibodies.test_date.substr(0, 10)}
+                    placeholder="დდ/თთ/წწ"
+                    className="w-[488px] h-12 ml-5 bg-transparent border border-[#232323] px-5 py-5 placeholder:text-base placeholder:text-[#232323] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <input
                     {...register("antibodyCount", {
